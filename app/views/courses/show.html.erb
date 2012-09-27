@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @course.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @course.description %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @course.price %>
+</p>
+
+<p>
+  <b>Rating:</b>
+  <%= @course.rating %>
+</p>
+
+<p>
+  <b>Enabled:</b>
+  <%= @course.enabled %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @course.user_id %>
+</p>
+
+<p>
+  <b>Collection:</b>
+  <%= @course.collection_id %>
+</p>
+
+<p>
+  <b>Language:</b>
+  <%= @course.language_id %>
+</p>
+
+<p>
+  <b>No of reviews:</b>
+  <%= @course.no_of_reviews %>
+</p>
+
+<p>
+  <b>No of registrations:</b>
+  <%= @course.no_of_registrations %>
+</p>
+
+<p>
+  <b>Photo file name:</b>
+  <%= @course.photo_file_name %>
+</p>
+
+<p>
+  <b>Photo content type:</b>
+  <%= @course.photo_content_type %>
+</p>
+
+<p>
+  <b>Photo file size:</b>
+  <%= @course.photo_file_size %>
+</p>
+
+<p>
+  <b>Photo updated at:</b>
+  <%= @course.photo_updated_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_course_path(@course) %> |
+<%= link_to 'Back', courses_path %>

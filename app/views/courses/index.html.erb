@@ -1,0 +1,49 @@
+<h1>Listing courses</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th>Rating</th>
+    <th>Enabled</th>
+    <th>User</th>
+    <th>Collection</th>
+    <th>Language</th>
+    <th>No of reviews</th>
+    <th>No of registrations</th>
+    <th>Photo file name</th>
+    <th>Photo content type</th>
+    <th>Photo file size</th>
+    <th>Photo updated at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @courses.each do |course| %>
+  <tr>
+    <td><%= course.title %></td>
+    <td><%= course.description %></td>
+    <td><%= course.price %></td>
+    <td><%= course.rating %></td>
+    <td><%= course.enabled %></td>
+    <td><%= course.user_id %></td>
+    <td><%= course.collection_id %></td>
+    <td><%= course.language_id %></td>
+    <td><%= course.no_of_reviews %></td>
+    <td><%= course.no_of_registrations %></td>
+    <td><%= course.photo_file_name %></td>
+    <td><%= course.photo_content_type %></td>
+    <td><%= course.photo_file_size %></td>
+    <td><%= course.photo_updated_at %></td>
+    <td><%= link_to 'Show', course %></td>
+    <td><%= link_to 'Edit', edit_course_path(course) %></td>
+    <td><%= link_to 'Destroy', course, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Course', new_course_path %>

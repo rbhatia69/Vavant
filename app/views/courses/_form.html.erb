@@ -1,0 +1,22 @@
+<%= semantic_form_for @course do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :price %>
+    <%= f.input :rating %>
+    <%= f.input :enabled %>
+    <%= f.input :user_id %>
+    <%= f.input :collection_id %>
+    <%= f.input :language_id %>
+    <%= f.input :no_of_reviews %>
+    <%= f.input :no_of_registrations %>
+    <%= f.input :photo_file_name %>
+    <%= f.input :photo_content_type %>
+    <%= f.input :photo_file_size %>
+    <%= f.input :photo_updated_at %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
