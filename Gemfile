@@ -3,8 +3,11 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.3'
 gem 'sqlite3'
 gem 'jquery-rails'
-gem 'formtastic'
-gem 'formtastic-bootstrap'
+gem 'formtastic', '~> 2.1.1'
+gem 'formtastic-bootstrap', '~> 1.1.2',
+  :git => 'git://github.com/cgunther/formtastic-bootstrap.git',
+  :branch => 'bootstrap2-rails3-2-formtastic-2-1'
+
 gem 'devise'
 
 # Gems used only for assets and not required
