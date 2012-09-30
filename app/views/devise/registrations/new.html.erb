@@ -1,18 +1,11 @@
 <h2>Sign Up</h2></br>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
+<%= semantic_form_for @user, :url => {:action => "create"} do |f| %>
 
-  <div><%= f.label :email %>
-  <%= f.email_field :email %></div>
+  <%= f.inputs :email, :username, :password, :password_confirmation %>
+  <%= f.buttons %>
 
-  <div><%= f.label :password %>
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Sign Up" %></div>
 <% end %>
 
 <%= render "links" %>
