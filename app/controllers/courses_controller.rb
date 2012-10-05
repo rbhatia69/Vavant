@@ -12,6 +12,17 @@ class CoursesController < ApplicationController
     end
   end
 
+  # GET /courses/authored
+  # GET /coures/authored.json
+  def authored
+    @courses = Course.courses_authored_by_user(current_user.id)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @courses }
+    end
+  end
+
   # GET /courses/1
   # GET /courses/1.json
   def show
@@ -43,6 +54,7 @@ class CoursesController < ApplicationController
   # POST /courses.json
   def create
     @course = Course.new(params[:course])
+    @course.user_id = current_user.id
 
     respond_to do |format|
       if @course.save

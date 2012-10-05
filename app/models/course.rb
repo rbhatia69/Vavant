@@ -5,6 +5,7 @@ class Course < ActiveRecord::Base
   has_many :lessons, :dependent => :destroy
   has_many :reviews
   has_many :registrations
+  has_attached_file :photo
 
   ## validations
   validates :description, :presence => true
@@ -18,7 +19,7 @@ class Course < ActiveRecord::Base
   validates_numericality_of :no_of_registrations
 
   ## accessible attributes
-  attr_accessible :collection_id, :description, :enabled, :language_id, :no_of_registrations, :no_of_reviews, :photo_content_type, :photo_file_name, :photo_file_size, :photo_updated_at, :price, :rating, :title, :user_id
+  attr_accessible :collection_id, :description, :enabled, :language_id, :no_of_registrations, :no_of_reviews, :photo_content_type, :price, :rating, :title, :user_id, :photo
 
   ## method to set default values
   before_validation :set_default_values
@@ -41,7 +42,6 @@ class Course < ActiveRecord::Base
     if self.no_of_registrations.nil?
       self.no_of_registrations = 0
     end
-
   end
 
   ## can't if there are reviews or registrations
@@ -62,4 +62,9 @@ class Course < ActiveRecord::Base
   def self.courses_by_collection(collection_id)
     return Course.where("enabled = ? and collection_id = ?", true, collection_id)
   end
+
+  def self.courses_authored_by_user(user_id)
+    return Course.where("user_id = ?", user_id)
+  end
+
 end
