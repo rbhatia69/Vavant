@@ -67,13 +67,11 @@
         </div><!--/.well -->
       </div>
       <div class="span9">
-        <% if !notice.nil? || !alert.nil? %>
-            <% if !notice.nil? %>
-                <p class="alert"><%=  notice %></p>
-            <% end %>
-            <% if !alert.nil? %>
-                <p class="alert"><%=  alert %></p>
-            <% end %>
+        <% flash.each do |name, msg| %>
+          <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+            <a class="close" data-dismiss="alert">x</a>
+            <%= msg  %>
+          </div>
         <% end %>
         <%= yield %>
       </div>

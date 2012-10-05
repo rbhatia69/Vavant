@@ -15,4 +15,4 @@ doc/api
 doc/app
 *.swp
 .idea/*
-public/*
+public/system/*
