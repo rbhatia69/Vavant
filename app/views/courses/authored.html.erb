@@ -3,6 +3,7 @@
 <table class="table table-striped">
   <thead>
   <tr>
+    <th></th>
     <th>Title</th>
     <th>Description</th>
     <th>Price</th>
@@ -14,9 +15,10 @@
 
     <% @courses.each do |course| %>
       <tr>
+        <td><%= image_tag course.photo.url(), :size => "100x100" %></td>
         <td><%= link_to course.title, course %></td>
         <td><%= course.description %></td>
-        <td><%= course.price %></td>
+        <td>$<%= course.price %></td>
         <td><%= course.enabled %></td>
         <td><%= course.collection_id %></td>
         <td>

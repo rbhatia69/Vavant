@@ -7,6 +7,8 @@ class Course < ActiveRecord::Base
   has_many :registrations
   has_attached_file :photo
 
+  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
+
   ## validations
   validates :description, :presence => true
   validates :title, :presence => true, :length => {:in => 5..80}
