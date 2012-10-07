@@ -2,6 +2,7 @@ class Course < ActiveRecord::Base
   ## relationships
   belongs_to :user
   belongs_to :collection
+  belongs_to :language
   has_many :lessons, :dependent => :destroy
   has_many :reviews
   has_many :registrations
@@ -21,7 +22,7 @@ class Course < ActiveRecord::Base
   validates_numericality_of :no_of_registrations
 
   ## accessible attributes
-  attr_accessible :collection_id, :description, :enabled, :language_id, :no_of_registrations, :no_of_reviews, :photo_content_type, :price, :rating, :title, :user_id, :photo
+  attr_accessible :collection_id, :description, :enabled, :language_id, :no_of_registrations, :no_of_reviews, :price, :rating, :title, :user_id, :photo
 
   ## method to set default values
   before_validation :set_default_values
