@@ -8,7 +8,8 @@ class Course < ActiveRecord::Base
   has_many :registrations
   has_attached_file :photo
 
-  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_size :photo, :less_than => 1.megabytes
+  validates_attachment_content_type :photo, :content_type => ['image/jpg', 'image/png', 'image/jpeg']
 
   ## validations
   validates :description, :presence => true
@@ -59,15 +60,15 @@ class Course < ActiveRecord::Base
   end
 
   def self.active_courses
-    return Course.where(:enabled => true)
+    return Course.where(:enabled => true).order("updated_at DESC")
   end
 
   def self.courses_by_collection(collection_id)
-    return Course.where("enabled = ? and collection_id = ?", true, collection_id)
+    return Course.where("enabled = ? and collection_id = ?", true, collection_id).order("updated_at DESC")
   end
 
   def self.courses_authored_by_user(user_id)
-    return Course.where("user_id = ?", user_id)
+    return Course.where("user_id = ?", user_id).order("updated_at DESC")
   end
 
 end

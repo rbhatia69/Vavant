@@ -1,75 +1,103 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @course.title %>
-</p>
+<h1><%= @course.title %></h1>
 
-<p>
-  <b>Description:</b>
-  <%= @course.description %>
-</p>
+<div class="row">
+  <div class="span6">
+    <p></p>
 
-<p>
-  <b>Price:</b>
-  <%= @course.price %>
-</p>
+    <p class="lead"><%= image_tag @course.photo.url(), :size => "100x100", :class => 'img-polaroid' %> <%= @course.description %></p>
 
-<p>
-  <b>Rating:</b>
-  <%= @course.rating %>
-</p>
-
-<p>
-  <b>Enabled:</b>
-  <%= @course.enabled %>
-</p>
-
-<p>
-  <b>User:</b>
-  <%= @course.user_id %>
-</p>
-
-<p>
-  <b>Collection:</b>
-  <%= @course.collection_id %>
-</p>
-
-<p>
-  <b>Language:</b>
-  <%= @course.language_id %>
-</p>
-
-<p>
-  <b>No of reviews:</b>
-  <%= @course.no_of_reviews %>
-</p>
-
-<p>
-  <b>No of registrations:</b>
-  <%= @course.no_of_registrations %>
-</p>
-
-<p>
-  <b>Photo file name:</b>
-  <%= @course.photo_file_name %>
-</p>
-
-<p>
-  <b>Photo content type:</b>
-  <%= @course.photo_content_type %>
-</p>
-
-<p>
-  <b>Photo file size:</b>
-  <%= @course.photo_file_size %>
-</p>
-
-<p>
-  <b>Photo updated at:</b>
-  <%= @course.photo_updated_at %>
-</p>
+  </div>
 
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+  <div class="span3">
+      <% if @is_user_registered %>
+        <p><%= link_to 'Lessons', courses_register_path(@course), :class => 'btn btn-large btn-info' %></p>
+        <%= link_to 'Write a Review', courses_register_path(@course), :class => 'btn btn-large btn-warning' %>
+      <% else %>
+        <% if @course.price > 0 %>
+            <%= link_to '$ ' + @course.price.to_s + ' - Register', courses_register_path(@course), :class => 'btn btn-large btn-success' %>
+        <% else %>
+            <%= link_to 'FREE - Register', courses_register_path(@course), :class => 'btn btn-large btn-success' %>
+        <% end %>
+      <% end %>
+      <div class="widget">
+           <h5 class="sidebar-title">Details </h5>
+           <ul class="unstyled">
+            <li><i class="icon-user"></i> by <%= link_to @course.user.username, @course %></li>
+            <li><i class="icon-calendar"></i> <%= @course.updated_at.to_date.to_s(:long) %> </li>
+            <li><i class="icon-volume-up"></i> <%= @course.language.name %></li>
+            <li><i class="icon-comment"></i><%= @course.no_of_reviews %> comments</li>
+            <li><i class="icon-share"></i><%= @course.no_of_registrations %> registered</li>
+            <% if @course.collection_id.nil? %>
+            <% else %>
+                 <i class="icon-calendar"></i> <%= course.collection.name %>
+            <% end %>
+            <li><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></li>
+           </ul>
+      </div>
+
+      <div class="widget">
+         <h5 class="sidebar-title">Categories </h5>
+            <p><a href="#"><span class="label label-info">Category 1</span></a> <a href="#"><span class="label label-info">Category 2</span></a> <a href="#"><span class="label label-info">Category 3</span></a></p>
+      </div>
+      <div class="widget">
+       <h5 class="sidebar-title">Tags </h5>
+          <p><a href="#"><span class="label label-info">City</span></a> <a href="#"><span class="label label-info">Bootstrap</span></a> <a href="#"><span class="label label-info">UI</span></a></p>
+      </div>
+
+  </div>
+</div>
+<hr>
+
+<div class="row">
+  <h3>Lessons</h3>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Lesson</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+      <% @course.lessons.each do |lesson| %>
+        <tr>
+          <td><%= link_to lesson.title, lesson %><br><%= lesson.description %></td>
+          <td>
+            <%= link_to 'Launch', edit_course_path(lesson), :class => 'btn btn-mini' %>
+          </td>
+        </tr>
+
+      <% end %>
+
+  </table>
+</div>
+
+<hr>
+
+<div class="row">
+  <h3>Comments</h3>
+
+  <div class="span9">
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Comment</th>
+        <th>Author</th>
+        <th>Rating</th>
+      </tr>
+      </thead>
+
+        <% @course.reviews.each do |review| %>
+          <tr>
+            <td><%= review.comment %></td>
+            <td><%= review.user.username %></td>
+            <td><%= review.rating %></td> and Date
+          </tr>
+
+        <% end %>
+
+    </table>
+  </div>
+</div>

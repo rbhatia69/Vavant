@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <title>Vavant</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag    "font-awesome", "style", "colorbox", "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
@@ -15,7 +15,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="brand" href="/"><i class="icon-film icon-white"></i> Vavant</a>
+        <a class="brand" href="/">vavant</a>
         <div class="nav-collapse collapse">
             <ul class="pull-right nav">
               <li <% if current_page? new_course_path %> class="active" <% end %>><%= link_to "Create Course", new_course_path %></li>
@@ -25,8 +25,7 @@
                       <ul class="dropdown-menu">
                         <li><%= link_to "Profile", edit_user_registration_path %></li>
                         <li class="divider"></li>
-                        <li><%= link_to "Authored Courses", courses_authored_path %></li>
-                        <li><%= link_to "Registered Courses", courses_authored_path %></li>
+                        <li><%= link_to "My Courses", courses_authored_path %></li>
                       </ul>
                 </li>
                 <li <% if current_page? destroy_user_session_path %> class="active" <% end %>><%= link_to "Sign Out", destroy_user_session_path %></li>
@@ -42,29 +41,85 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid">
-    <div class="row-fluid">
+  <div class="container">
+    <div class="row">
       <div class="span3">
-        <div class="well sidebar-nav">
-                  <ul class="nav nav-list">
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
+        <div class="widget">
+        <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                  Categories
+                </a>
+              </div>
+              <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                  <ul class="unstyled">
+                   <li><a href="#">Category 1</a> </li>
+                   <li><a href="#">Category 2</a> </li>
+                   <li><a href="#">Category 3</a> </li>
                   </ul>
-        </div><!--/.well -->
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                  Price Range
+                </a>
+              </div>
+              <div id="collapseTwo" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  <ul class="unstyled">
+                   <li><a href="#">Free</a> </li>
+                   <li><a href="#">$0.99 - $5.99</a> </li>
+                   <li><a href="#">$5.99 - $10.99</a> </li>
+                   <li><a href="#">$10.99 and more</a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                Language
+              </a>
+            </div>
+            <div id="collapseThree" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <ul class="unstyled">
+                 <li><a href="#">English</a> </li>
+                 <li><a href="#">French</a> </li>
+                 <li><a href="#">German</a> </li>
+                 <li><a href="#">Spanish</a> </li>
+                 <li><a href="#">Italian</a> </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                  Ratings
+                </a>
+              </div>
+              <div id="collapseFour" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  <ul class="unstyled">
+                   <li><a href="#"><i class="icon-star"></i></a> </li>
+                   <li><a href="#"><i class="icon-star"></i><i class="icon-star"></i></a> </li>
+                   <li><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
+                   <li><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i> and more</a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+</div>
+
+
       </div>
       <div class="span9">
         <% flash.each do |name, msg| %>
@@ -79,7 +134,7 @@
     <hr>
 
       <footer>
-        &copy; Company 2012 | <a href="#">About Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Us</a> | <a href="#">Contact Us</a>
+        &copy; Company 2012 | <%= link_to 'what is vavant', home_whatis_path %> | <a href="#">About Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | <a href="#">Contact Us</a>
       </footer>
   </div>
 

@@ -1,32 +1,134 @@
-<h1>Authored Courses</h1>
+<h1>My Courses</h1>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th></th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Price</th>
-    <th>Enabled</th>
-    <th>Collection</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Authored</a></li>
+    <li><a href="#tab2" data-toggle="tab">Registered</a></li>
+  </ul>
+    <div class="tab-content">
+       <div class="tab-pane active" id="tab1">
+         <% @courses.each do |course| %>
+               <div class="row">
+                <div class="span9">
+                  <div class="blog-post">
+                  <div class="row">
+                    <div class="span9">
+                      <h3 class="post-title"><%= link_to course.title, course %></h3>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="span9">
+                      <p>
+                        <i class="icon-user"></i> by <%= link_to course.user.username, course %>
+                        | <i class="icon-calendar"></i><%= course.updated_at.to_date.to_s(:long) %>
+                        | <i class="icon-comment"></i><%= course.no_of_reviews %> comments
+                        | <i class="icon-share"></i><%= course.no_of_registrations %> registered
+                        | <i class="icon-tags"></i> Tags : <a href="#"><span class="label label-info">City</span></a>
+                        <a href="#"><span class="label label-info">Buildings</span></a>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="row">
+                     <div class="span9">
+                       <p>
+                         $ <%= course.price %>
+                         <% if course.collection_id.nil? %>
+                         <% else %>
+                             | <i class="icon-calendar"></i> <%= course.collection.name %>
+                         <% end %>
+                         | <i class="icon-volume-up"></i><%= course.language.name %>
+                         | <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                         | <i class="icon-tags"></i> Categories : <a href="#"><span class="label label-info">City</span></a>
+                         <a href="#"><span class="label label-info">Buildings</span></a>
+                       </p>
+                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="span2">
+                      <%= image_tag course.photo.url(), :size => "100x100", :class => 'thumbnail' %>
+                    </div>
+                    <div class="span7">
+                      <p>
+                        <%= course.description %>
+                      </p>
+                    </div>
+                  </div>
+                    <div class="row">
+                      <div class="span2"><p></p></div>
+                      <div class="span7">
+                        <%= link_to 'Edit', edit_course_path(course), :class => 'btn' %>
+                        <%= link_to 'Copy', edit_course_path(course), :class => 'btn btn-success' %>
+                        <%= link_to 'Destroy', course, confirm: 'Are you sure?', method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+                      </div>
+                    </div>
+                </div>
+                </div>
+               </div>
+               <hr>
+         <% end %>
 
-    <% @courses.each do |course| %>
-      <tr>
-        <td><%= image_tag course.photo.url(), :size => "100x100" %></td>
-        <td><%= link_to course.title, course %></td>
-        <td><%= course.description %></td>
-        <td>$<%= course.price %></td>
-        <td><%= course.enabled %></td>
-        <td><%= course.collection_id %></td>
-        <td>
-          <%= link_to 'Edit', edit_course_path(course), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', course, confirm: 'Are you sure?', method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
+       </div>
+       <div class="tab-pane" id="tab2">
+         <% @registered_courses.each do |registration| %>
+                <div class="row">
+                 <div class="span9">
+                   <div class="blog-post">
+                   <div class="row">
+                     <div class="span9">
+                       <h3 class="post-title"><%= link_to registration.course.title, registration.course %></h3>
+                     </div>
+                   </div>
+                   <div class="row">
+                     <div class="span9">
+                       <p>
+                         <i class="icon-user"></i> by <%= link_to registration.course.user.username, registration.course %>
+                         | <i class="icon-calendar"></i><%= registration.course.updated_at.to_date.to_s(:long) %>
+                         | <i class="icon-comment"></i><%= registration.course.no_of_reviews %> comments
+                         | <i class="icon-share"></i><%= registration.course.no_of_registrations %> registered
+                         | <i class="icon-tags"></i> Tags : <a href="#"><span class="label label-info">City</span></a>
+                         <a href="#"><span class="label label-info">Buildings</span></a>
+                       </p>
+                     </div>
+                   </div>
+                   <div class="row">
+                      <div class="span9">
+                        <p>
+                          $ <%= registration.price %>
+                          <% if registration.course.collection_id.nil? %>
+                          <% else %>
+                              | <i class="icon-calendar"></i> <%= registration.course.collection.name %>
+                          <% end %>
+                          | <i class="icon-volume-up"></i><%= registration.course.language.name %>
+                          | <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                          | <i class="icon-tags"></i> Categories : <a href="#"><span class="label label-info">City</span></a>
+                          <a href="#"><span class="label label-info">Buildings</span></a>
+                        </p>
+                      </div>
+                   </div>
+                   <div class="row">
+                     <div class="span2">
+                       <%= image_tag registration.course.photo.url(), :size => "100x100", :class => 'thumbnail' %>
+                     </div>
+                     <div class="span7">
+                       <p>
+                         <%= registration.course.description %>
+                       </p>
+                     </div>
+                   </div>
+                     <div class="row">
+                       <div class="span2"><p></p></div>
+                       <div class="span7">
+                         <%= link_to 'Lessons', edit_course_path(registration.course), :class => 'btn btn-large btn-info' %>
+                         <%= link_to 'Write Review', edit_course_path(registration.course), :class => 'btn btn-large btn-warning' %>
+                       </div>
+                     </div>
+                 </div>
+                 </div>
+                </div>
+                <hr>
+          <% end %>
 
-    <% end %>
+       </div>
+     </div>
+</div>
 
-</table>

@@ -1,5 +1,6 @@
 Vavant::Application.routes.draw do
   get "courses/authored" => 'courses#authored', :as => 'courses_authored'
+  get "courses/register/:course_id" => 'courses#register', :as => 'courses_register'
 
   resources :courses
 
@@ -69,4 +70,6 @@ Vavant::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+
+  get "home/whatis" => 'home#whatis', :as => 'home_whatis'
 end

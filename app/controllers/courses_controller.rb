@@ -6,10 +6,6 @@ class CoursesController < ApplicationController
   def index
     @courses = Course.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @courses }
-    end
   end
 
   # GET /courses/authored
@@ -17,9 +13,13 @@ class CoursesController < ApplicationController
   def authored
     @courses = Course.courses_authored_by_user(current_user.id)
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @courses }
+    @registered_courses = Registration.user_registrations(current_user.id)
+  end
+
+  def register
+    @register = Registration.new(:user_id => current_user.id, :course_id => params[:course_id])
+   if @register.save
+        redirect_to(course_path(:id => params[:course_id]), :notice => 'You have successfully registered for the course.')
     end
   end
 
@@ -28,9 +28,9 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @course }
+    @is_user_registered = false
+    if (current_user)
+      @is_user_registered = Registration.is_user_registered_for_course(@course.id, current_user.id)
     end
   end
 
@@ -38,11 +38,6 @@ class CoursesController < ApplicationController
   # GET /courses/new.json
   def new
     @course = Course.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @course }
-    end
   end
 
   # GET /courses/1/edit
@@ -56,15 +51,12 @@ class CoursesController < ApplicationController
     @course = Course.new(params[:course])
     @course.user_id = current_user.id
 
-    respond_to do |format|
-      if @course.save
-        format.html { redirect_to :action => "authored", notice: 'Course was successfully created.' }
-        format.json { render json: @course, status: :created, location: @course }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
-      end
+    if @course.save
+        redirect_to(courses_authored_path, :notice => 'Course was successfully created.')
+    else
+        render :action => "new"
     end
+
   end
 
   # PUT /courses/1
@@ -72,14 +64,10 @@ class CoursesController < ApplicationController
   def update
     @course = Course.find(params[:id])
 
-    respond_to do |format|
-      if @course.update_attributes(params[:course])
-        format.html { redirect_to :action => "authored", notice: 'Course was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
-      end
+    if @course.update_attributes(params[:course])
+        redirect_to(courses_authored_path, :notice => 'Course was successfully updated.')
+    else
+        render :action => "new"
     end
   end
 
@@ -89,9 +77,6 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
     @course.destroy
 
-    respond_to do |format|
-      format.html { redirect_to :action => "authored" }
-      format.json { head :no_content }
-    end
+    redirect_to(courses_authored_path, :notice => 'Course was successfully deleted.')
   end
 end

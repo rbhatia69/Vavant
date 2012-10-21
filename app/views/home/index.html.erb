@@ -1,22 +1,54 @@
-      <div class="hero-unit">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-      </div>
-      <div class="row-fluid">
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div><!--/span-->
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div><!--/span-->
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div><!--/span-->
-      </div><!--/row-->
+<div class="blog-post">
+
+  <% @courses.each do |course| %>
+        <div class="row">
+         <div class="span9">
+           <div class="blog-post">
+           <div class="row">
+             <div class="span9">
+               <h3 class="post-title"><%= link_to course.title, course %></h3>
+             </div>
+           </div>
+           <div class="row">
+             <div class="span9">
+               <p>
+                 <i class="icon-user"></i> by <%= link_to course.user.username, course %>
+                 | <i class="icon-calendar"></i> <%= course.updated_at.to_date.to_s(:long) %>
+                 | <i class="icon-comment"></i><%= course.no_of_reviews %> comments
+                 | <i class="icon-share"></i><%= course.no_of_registrations %> registered
+                 | <i class="icon-tags"></i> Tags : <a href="#"><span class="label label-info">City</span></a>
+                 <a href="#"><span class="label label-info">Buildings</span></a>
+               </p>
+             </div>
+           </div>
+           <div class="row">
+              <div class="span9">
+                <p>
+                  $ <%= course.price %>
+                  <% if course.collection_id.nil? %>
+                  <% else %>
+                      | <i class="icon-calendar"></i> <%= course.collection.name %>
+                  <% end %>
+                  | <i class="icon-volume-up"></i> <%= course.language.name %>
+                  | <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                  | <i class="icon-tags"></i> Categories : <a href="#"><span class="label label-info">City</span></a>
+                  <a href="#"><span class="label label-info">Buildings</span></a>
+                </p>
+              </div>
+           </div>
+           <div class="row">
+             <div class="span2">
+               <%= image_tag course.photo.url(), :size => "100x100", :class => 'thumbnail' %>
+             </div>
+             <div class="span7">
+               <p>
+                 <%= course.description %>
+               </p>
+             </div>
+           </div>
+         </div>
+         </div>
+        </div>
+        <hr>
+  <% end %>
+</div>

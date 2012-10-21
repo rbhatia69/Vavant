@@ -31,4 +31,22 @@ class Registration < ActiveRecord::Base
     course.save
   end
 
+  def self.is_user_registered_for_course(course_id, user_id)
+    if (user_id.nil?)
+      return false
+    end
+    if (course_id.nil?)
+      return false
+    end
+    reg = Registration.where("course_id = ? and user_id = ?", course_id, user_id)
+    if (reg.length > 0)
+      return true
+    else
+      return false
+    end
+  end
+
+  def self.user_registrations (user_id)
+    return Registration.where("user_id = ?", user_id).order("updated_at DESC")
+  end
 end
