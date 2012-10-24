@@ -10,7 +10,8 @@ gem 'formtastic-bootstrap', '~> 1.1.2',
 
 gem 'devise'
 gem 'paperclip', :git => 'http://github.com/thoughtbot/paperclip.git'
-
+gem 'acts-as-taggable-on'
+gem 'will_paginate', '~> 3.0'
 
 # Gems used only for assets and not required
 # in production environments by default.

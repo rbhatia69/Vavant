@@ -1,6 +1,7 @@
 Vavant::Application.routes.draw do
   get "courses/authored" => 'courses#authored', :as => 'courses_authored'
   get "courses/register/:course_id" => 'courses#register', :as => 'courses_register'
+  get "tags/:tag" => 'home#index', :as => 'tag'
 
   resources :courses
 

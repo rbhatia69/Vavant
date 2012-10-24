@@ -1,15 +1,10 @@
 class CoursesController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
 
-  # GET /courses
-  # GET /courses.json
   def index
-    @courses = Course.all
-
+      @courses = Course.all
   end
 
-  # GET /courses/authored
-  # GET /coures/authored.json
   def authored
     @courses = Course.courses_authored_by_user(current_user.id)
 
@@ -23,8 +18,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  # GET /courses/1
-  # GET /courses/1.json
   def show
     @course = Course.find(params[:id])
 

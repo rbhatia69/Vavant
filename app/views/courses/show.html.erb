@@ -31,19 +31,19 @@
             <li><i class="icon-share"></i><%= @course.no_of_registrations %> registered</li>
             <% if @course.collection_id.nil? %>
             <% else %>
-                 <i class="icon-calendar"></i> <%= course.collection.name %>
+                 <i class="icon-calendar"></i> <%= @course.collection.name %>
             <% end %>
             <li><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></li>
            </ul>
       </div>
 
       <div class="widget">
-         <h5 class="sidebar-title">Categories </h5>
-            <p><a href="#"><span class="label label-info">Category 1</span></a> <a href="#"><span class="label label-info">Category 2</span></a> <a href="#"><span class="label label-info">Category 3</span></a></p>
-      </div>
-      <div class="widget">
        <h5 class="sidebar-title">Tags </h5>
-          <p><a href="#"><span class="label label-info">City</span></a> <a href="#"><span class="label label-info">Bootstrap</span></a> <a href="#"><span class="label label-info">UI</span></a></p>
+        <% if @course.tag_list.size > 0 %>
+            <% @course.tag_list.each do |t| %>
+                <%= link_to t, tag_path(t), :class => "label label-info" %>
+            <% end %>
+        <% end %>
       </div>
 
   </div>

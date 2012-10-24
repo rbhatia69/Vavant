@@ -7,6 +7,7 @@ class Course < ActiveRecord::Base
   has_many :reviews
   has_many :registrations
   has_attached_file :photo
+  acts_as_taggable
 
   validates_attachment_size :photo, :less_than => 1.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpg', 'image/png', 'image/jpeg']
@@ -23,7 +24,8 @@ class Course < ActiveRecord::Base
   validates_numericality_of :no_of_registrations
 
   ## accessible attributes
-  attr_accessible :collection_id, :description, :enabled, :language_id, :no_of_registrations, :no_of_reviews, :price, :rating, :title, :user_id, :photo
+  attr_accessible :collection_id, :description, :enabled, :language_id, :no_of_registrations,
+                  :no_of_reviews, :price, :rating, :title, :user_id, :photo, :tag_list
 
   ## method to set default values
   before_validation :set_default_values
@@ -65,6 +67,10 @@ class Course < ActiveRecord::Base
 
   def self.courses_by_collection(collection_id)
     return Course.where("enabled = ? and collection_id = ?", true, collection_id).order("updated_at DESC")
+  end
+
+  def self.courses_by_name(name)
+    return Course.where("enabled = ? and title LIKE ?", true, "%#{name}%").order("updated_at DESC")
   end
 
   def self.courses_authored_by_user(user_id)

@@ -36,7 +36,7 @@
             </ul>
         </div>
         <form class="navbar-search">
-          <input type="text" class="search-query" placeholder="Find Courses">
+          <input type="text" class="search-query" placeholder="Find Courses" name="find_course_by">
         </form>
       </div>
     </div>
@@ -49,16 +49,16 @@
             <div class="accordion-group">
               <div class="accordion-heading">
                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                  Categories
+                  Tags
                 </a>
               </div>
               <div id="collapseOne" class="accordion-body collapse in">
                 <div class="accordion-inner">
-                  <ul class="unstyled">
-                   <li><a href="#">Category 1</a> </li>
-                   <li><a href="#">Category 2</a> </li>
-                   <li><a href="#">Category 3</a> </li>
-                  </ul>
+                  <div id="tag_cloud">
+                    <% tag_cloud Course.tag_counts, %w{s m l} do |tag, css_class| %>
+                      <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             </div>
