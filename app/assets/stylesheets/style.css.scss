@@ -51,7 +51,7 @@ iframe, object, embed{max-width: 100%;}
 }
 
 .navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
-  color: #366180;
+  color: #999999;
   background-color: transparent;
   -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
@@ -751,6 +751,7 @@ table code {
   }
 }
 
+/* --- tag style */
 #tag_cloud {
   width: 200px;
   line-height: 1.6em;

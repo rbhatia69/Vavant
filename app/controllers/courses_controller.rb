@@ -2,13 +2,15 @@ class CoursesController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
 
   def index
-      @courses = Course.all
+      @courses = Course.all.page(params[:page])
   end
 
   def authored
-    @courses = Course.courses_authored_by_user(current_user.id)
+    @courses = Course.courses_authored_by_user(current_user.id).page(params[:page])
+  end
 
-    @registered_courses = Registration.user_registrations(current_user.id)
+  def registered
+    @registered_courses = Registration.user_registrations(current_user.id).page(params[:page])
   end
 
   def register

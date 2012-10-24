@@ -1,4 +1,6 @@
 class Course < ActiveRecord::Base
+  self.per_page = 1
+
   ## relationships
   belongs_to :user
   belongs_to :collection

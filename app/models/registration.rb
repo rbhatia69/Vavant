@@ -1,4 +1,6 @@
 class Registration < ActiveRecord::Base
+  self.per_page = 1
+
   belongs_to :course
   belongs_to :user
 

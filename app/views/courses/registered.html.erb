@@ -1,0 +1,69 @@
+<h1>Registered Courses</h1>
+
+<div class="blog-post">
+
+ <% @registered_courses.each do |registration| %>
+        <div class="row">
+         <div class="span9">
+           <div class="blog-post">
+           <div class="row">
+             <div class="span9">
+               <h3 class="post-title"><%= link_to registration.course.title, registration.course %></h3>
+             </div>
+           </div>
+           <div class="row">
+             <div class="span9">
+               <p>
+                 <i class="icon-user"></i> by <%= link_to registration.course.user.username, registration.course %>
+                 | <i class="icon-calendar"></i><%= registration.course.updated_at.to_date.to_s(:long) %>
+                 | <i class="icon-comment"></i><%= registration.course.no_of_reviews %> comments
+                 | <i class="icon-share"></i><%= registration.course.no_of_registrations %> registered
+                 <% if registration.course.tag_list.size > 0 %>
+                     | <i class="icon-tags"></i> Tags:
+                     <% registration.course.tag_list.each do |t| %>
+                         <span class="label label-info"><%= t %></span>
+                     <% end %>
+                 <% end %>
+               </p>
+             </div>
+           </div>
+           <div class="row">
+              <div class="span9">
+                <p>
+                  $ <%= registration.price %>
+                  <% if registration.course.collection_id.nil? %>
+                  <% else %>
+                      | <i class="icon-calendar"></i> <%= registration.course.collection.name %>
+                  <% end %>
+                  | <i class="icon-volume-up"></i><%= registration.course.language.name %>
+                  | <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+                </p>
+              </div>
+           </div>
+           <div class="row">
+             <div class="span2">
+               <%= image_tag registration.course.photo.url(), :size => "100x100", :class => 'thumbnail' %>
+             </div>
+             <div class="span7">
+               <p>
+                 <%= registration.course.description %>
+               </p>
+             </div>
+           </div>
+             <div class="row">
+               <div class="span2"><p></p></div>
+               <div class="span7">
+                 <%= link_to 'Lessons', edit_course_path(registration.course), :class => 'btn btn-large btn-info' %>
+                 <%= link_to 'Write Review', edit_course_path(registration.course), :class => 'btn btn-large btn-warning' %>
+               </div>
+             </div>
+         </div>
+         </div>
+        </div>
+        <hr>
+  <% end %>
+ <div class="row">
+   <%= will_paginate @registered_courses, :container => false %>
+ </div>
+
+</div>
