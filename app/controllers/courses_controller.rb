@@ -22,15 +22,19 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    @course.reviews = Review.reviews_by_courses(@course.id)
 
     @is_user_registered = false
     if (current_user)
       @is_user_registered = Registration.is_user_registered_for_course(@course.id, current_user.id)
     end
+
+    @review = Review.new()
+    @review.course_id = @course.id
+    @review.user_id = current_user.id
+
   end
 
-  # GET /courses/new
-  # GET /courses/new.json
   def new
     @course = Course.new
   end
@@ -40,8 +44,6 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
   end
 
-  # POST /courses
-  # POST /courses.json
   def create
     @course = Course.new(params[:course])
     @course.user_id = current_user.id

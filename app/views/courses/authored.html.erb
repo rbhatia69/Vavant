@@ -58,6 +58,7 @@
               <div class="span7">
                 <%= link_to 'Edit', edit_course_path(course), :class => 'btn' %>
                 <%= link_to 'Copy', edit_course_path(course), :class => 'btn btn-success' %>
+                <%= link_to 'Lessons (' + course.lessons.count.to_s + ')', lessons_path(:course_id => course, :course_title => course.title), :class => 'btn btn-primary' %>
                 <%= link_to 'Destroy', course, confirm: 'Are you sure?', method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
               </div>
             </div>

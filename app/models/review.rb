@@ -1,5 +1,6 @@
 class Review < ActiveRecord::Base
   belongs_to :course
+  belongs_to :user
 
   validates_numericality_of :rating
   validates_inclusion_of :rating, :in => 0..5
@@ -56,7 +57,9 @@ class Review < ActiveRecord::Base
   end
 
   def self.reviews_by_courses(course_id)
-    return Review.where("course_id = ?", course_id)
+    return Review.where("course_id = ?", course_id).order("updated_at DESC")
+
+
   end
 
 end

@@ -1,24 +1,12 @@
 class ReviewsController < ApplicationController
-  # GET /reviews
-  # GET /reviews.json
   def index
     @reviews = Review.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @reviews }
-    end
   end
 
   # GET /reviews/1
   # GET /reviews/1.json
   def show
     @review = Review.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @review }
-    end
   end
 
   # GET /reviews/new
@@ -26,10 +14,6 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @review }
-    end
   end
 
   # GET /reviews/1/edit
@@ -42,14 +26,10 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(params[:review])
 
-    respond_to do |format|
-      if @review.save
-        format.html { redirect_to @review, notice: 'Review was successfully created.' }
-        format.json { render json: @review, status: :created, location: @review }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @review.errors, status: :unprocessable_entity }
-      end
+    if @review.save
+        redirect_to(course_path(:id => @review.course_id), :notice => 'Comment posted successfully.')
+    else
+        render :action => "new"
     end
   end
 

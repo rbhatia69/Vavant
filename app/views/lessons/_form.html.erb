@@ -1,12 +1,14 @@
-<%= semantic_form_for @lesson do |f| %>
+<div class="span9">
+<%= semantic_form_for @lesson, :html => { :multipart => true } do |f| %>
   <%= f.inputs do %>
-    <%= f.input :title %>
+    <%= f.input :title,  :input_html => { :size => 50 } %>
     <%= f.input :description %>
-    <%= f.input :course_id %>
-    <%= f.input :sequence %>
+    <%= f.input :course_id, :as => :hidden  %>
+    <%= f.input :sequence, :as => :hidden %>
   <% end %>
 
   <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
+    <%= f.action :submit, :as => :input, :label => 'Save' %>
   <% end %>
 <% end %>
+</div>

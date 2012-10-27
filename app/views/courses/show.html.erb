@@ -18,7 +18,7 @@
   <div class="span3">
       <% if @is_user_registered %>
         <p><%= link_to 'Lessons', courses_register_path(@course), :class => 'btn btn-large btn-info' %></p>
-        <%= link_to 'Write a Review', new_review_path(@course), :class => 'btn btn-large btn-warning' %>
+        <%= link_to 'Post a comment', {:anchor => 'post_comment'}, :class => 'btn btn-large btn-warning' %>
       <% else %>
         <% if @course.price > 0 %>
             <%= link_to '$ ' + @course.price.to_s + ' - Register', courses_register_path(@course), :class => 'btn btn-large btn-success' %>
@@ -89,29 +89,19 @@
 <% if @course.reviews.count > 0 %>
 
     <div class="row">
-      <h3>Comments</h3>
+      <h3>Comments (<%= @course.reviews.count %>)</h3>
 
       <div class="span9">
+        <% @course.reviews.each do |review| %>
 
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>Comment</th>
-            <th>Author</th>
-            <th>Rating</th>
-          </tr>
-          </thead>
-
-            <% @course.reviews.each do |review| %>
-              <tr>
-                <td><%= review.comment %></td>
-                <td><%= review.user.username %></td>
-                <td><%= review.rating %></td> and Date
-              </tr>
-
-            <% end %>
-
-        </table>
+            <div class="comment-meta">
+              <%= link_to review.user.username, @review %> - <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+              <p class="date"><%= review.created_at.to_date.to_s(:long) %></p>
+            </div>
+            <div class="comment-body">
+              <p><%= review.comment %></p>
+            </div>
+        <% end %>
       </div>
 
     </div>
@@ -119,29 +109,24 @@
     <hr>
 <% end %>
 
-<div class="row">
+<% if @is_user_registered %>
+
+    <a id="post_comment"></a>
+    <div class="row">
         <div class="span8 well">
 
-          <form accept-charset="UTF-8" action="" method="POST" class="comments-form">
+          <%= semantic_form_for @review, :html => { :multipart => true } do |f| %>
+            <%= f.inputs do %>
+              <%= f.input :rating, :as => :select, :collection => [["1 star", 1], ["2 stars", 2], ["3 stars", 3], ["4 stars", 4], ["5 stars", 5]]%>
+              <%= f.input :comment %>
+              <%= f.input :course_id, :as => :hidden  %>
+              <%= f.input :user_id, :as => :hidden %>
+            <% end %>
 
-          <p class="input-block">
-          <label for="comment-name"><strong>Name</strong></label>
-          <input type="text" name="name" placeholder="Name" value="" id="comment-name" required="">
-          </p>
-
-          <p class="input-block">
-          <label for="comment-name"><strong>Email</strong></label>
-          <input type="text" name="name" placeholder="Email" value="" id="comment-name" required="">
-          </p>
-
-          <p class="input-block">
-          <label for="comment-name"><strong>Website</strong></label>
-          <input type="text" name="name" placeholder="Website" value="" id="comment-name" required="">
-          </p>
-
-
-        <textarea class="span8" id="new_message" name="new_message" placeholder="Type in your comment" rows="5"></textarea>
-        <button class="btn btn-info" type="submit">Post Comment</button>
-    </form>
-</div>
+            <%= f.actions do %>
+              <%= f.action :submit, :as => :input, :label => 'Post Comment' %>
+            <% end %>
+          <% end %>
+    </div>
+<% end %>
 </div>
