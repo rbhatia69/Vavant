@@ -88,7 +88,7 @@
             <div id="collapseThree" class="accordion-body collapse">
               <div class="accordion-inner">
                 <ul class="unstyled">
-                 <% @langs.each do |l|%>
+                 <% Language.used_languages().each do |l|%>
                     <li><%= link_to l.name, root_path(:language_name => l.name) %>
                  <% end %>
                 </ul>

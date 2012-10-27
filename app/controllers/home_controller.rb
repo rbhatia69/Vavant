@@ -13,7 +13,9 @@ class HomeController < ApplicationController
     else
       @courses = Course.active_courses().page(params[:page])
     end
+  end
 
-     @langs = Language.used_languages()
+  def whatisthis
+
   end
 end

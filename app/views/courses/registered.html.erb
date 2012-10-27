@@ -8,35 +8,39 @@
            <div class="blog-post">
            <div class="row">
              <div class="span9">
-               <h3 class="post-title"><%= link_to registration.course.title, registration.course %></h3>
+               <h3 class="post-title"><%= link_to registration.course.title, registration.course %>
+                 <% if registration.course.price == 0.0 %>
+                      <span class="price-color">- FREE</span>
+                 <% else %>
+                      <span class="price-color">- $ <%= registration.course.price %></span>
+                 <% end %>
+               </h3>
              </div>
            </div>
            <div class="row">
              <div class="span9">
                <p>
                  <i class="icon-user"></i> by <%= link_to registration.course.user.username, registration.course %>
-                 | <i class="icon-calendar"></i><%= registration.course.updated_at.to_date.to_s(:long) %>
-                 | <i class="icon-comment"></i><%= registration.course.no_of_reviews %> comments
+                 | <i class="icon-calendar"></i> <%= registration.course.updated_at.to_date.to_s(:long) %>
+                 | <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>(<%= registration.course.no_of_reviews %> comments)
                  | <i class="icon-share"></i><%= registration.course.no_of_registrations %> registered
-                 <% if registration.course.tag_list.size > 0 %>
-                     | <i class="icon-tags"></i> Tags:
-                     <% registration.course.tag_list.each do |t| %>
-                         <span class="label label-info"><%= t %></span>
-                     <% end %>
+                 <% if registration.course.collection_id.nil? %>
+                 <% else %>
+                     | <i class="icon-calendar"></i> <%= registration.course.collection.name %>
                  <% end %>
+                 | <i class="icon-volume-up"></i> <%= registration.course.language.name %>
                </p>
              </div>
            </div>
            <div class="row">
               <div class="span9">
                 <p>
-                  $ <%= registration.price %>
-                  <% if registration.course.collection_id.nil? %>
-                  <% else %>
-                      | <i class="icon-calendar"></i> <%= registration.course.collection.name %>
+                  <% if registration.course.tag_list.size > 0 %>
+                      <i class="icon-tags"></i> Tags:
+                      <% registration.course.tag_list.each do |t| %>
+                          <%= link_to t, tag_path(t), :class => "label label-info" %>
+                      <% end %>
                   <% end %>
-                  | <i class="icon-volume-up"></i><%= registration.course.language.name %>
-                  | <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
                 </p>
               </div>
            </div>

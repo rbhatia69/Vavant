@@ -1,5 +1,5 @@
 class Registration < ActiveRecord::Base
-  self.per_page = 1
+  self.per_page = 10
 
   belongs_to :course
   belongs_to :user
