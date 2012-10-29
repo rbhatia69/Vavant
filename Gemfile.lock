@@ -55,6 +55,9 @@ GEM
     bcrypt-ruby (3.0.1-x86-mingw32)
     bootstrap-sass (2.1.0.0)
     builder (3.0.3)
+    ckeditor (3.7.3)
+      mime-types
+      orm_adapter
     cocaine (0.3.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -157,6 +160,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   bootstrap-sass
+  ckeditor (= 3.7.3)
   coffee-rails (~> 3.2.1)
   devise
   formtastic (~> 2.1.1)

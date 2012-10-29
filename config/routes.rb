@@ -1,4 +1,8 @@
 Vavant::Application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+
+  mount Ckeditor::Engine => "/ckeditor"
+
   get "courses/authored" => 'courses#authored', :as => 'courses_authored'
   get "courses/registered" => 'courses#registered', :as => 'courses_registered'
 

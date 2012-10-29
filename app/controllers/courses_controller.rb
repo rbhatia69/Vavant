@@ -27,11 +27,11 @@ class CoursesController < ApplicationController
     @is_user_registered = false
     if (current_user)
       @is_user_registered = Registration.is_user_registered_for_course(@course.id, current_user.id)
-    end
 
-    @review = Review.new()
-    @review.course_id = @course.id
-    @review.user_id = current_user.id
+      @review = Review.new()
+      @review.course_id = @course.id
+      @review.user_id = current_user.id
+    end
 
   end
 
