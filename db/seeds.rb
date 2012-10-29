@@ -12,43 +12,10 @@ user.save
 
 Language.delete_all
 
-language = Language.create(:name => 'Chinese')
-language.save
-
-language = Language.create(:name => 'Dutch')
-language.save
-
 language = Language.create(:name => 'English')
 language.save
 
-language = Language.create(:name => 'French')
-language.save
-
-language = Language.create(:name => 'German')
-language.save
-
-language = Language.create(:name => 'Italian')
-language.save
-
-language = Language.create(:name => 'Japanese')
-language.save
-
-language = Language.create(:name => 'Korean')
-language.save
-
-language = Language.create(:name => 'Spanish')
-language.save
-
-language = Language.create(:name => 'Portuguese')
-language.save
-
-language = Language.create(:name => 'Czech')
-language.save
-
 language = Language.create(:name => 'Arabic')
-language.save
-
-language = Language.create(:name => 'Hindi')
 language.save
 
 language = Language.create(:name => 'Bulgarian')
@@ -57,10 +24,16 @@ language.save
 language = Language.create(:name => 'Cambodian')
 language.save
 
-language = Language.create(:name => 'Bulgarian')
+language = Language.create(:name => 'Chinese')
+language.save
+
+language = Language.create(:name => 'Czech')
 language.save
 
 language = Language.create(:name => 'Danish')
+language.save
+
+language = Language.create(:name => 'Dutch')
 language.save
 
 language = Language.create(:name => 'Estonian')
@@ -72,7 +45,16 @@ language.save
 language = Language.create(:name => 'Finnish')
 language.save
 
+language = Language.create(:name => 'French')
+language.save
+
+language = Language.create(:name => 'German')
+language.save
+
 language = Language.create(:name => 'Greek')
+language.save
+
+language = Language.create(:name => 'Hindi')
 language.save
 
 language = Language.create(:name => 'Hebrew')
@@ -85,6 +67,15 @@ language = Language.create(:name => 'Icelandic')
 language.save
 
 language = Language.create(:name => 'Indonesian')
+language.save
+
+language = Language.create(:name => 'Italian')
+language.save
+
+language = Language.create(:name => 'Japanese')
+language.save
+
+language = Language.create(:name => 'Korean')
 language.save
 
 language = Language.create(:name => 'Kurdish')
@@ -111,6 +102,9 @@ language.save
 language = Language.create(:name => 'Polish')
 language.save
 
+language = Language.create(:name => 'Portuguese')
+language.save
+
 language = Language.create(:name => 'Russian')
 language.save
 
@@ -126,6 +120,9 @@ language.save
 language = Language.create(:name => 'Slovenian')
 language.save
 
+language = Language.create(:name => 'Spanish')
+language.save
+
 language = Language.create(:name => 'Swedish')
 language.save
 
@@ -135,10 +132,10 @@ language.save
 language = Language.create(:name => 'Turkish')
 language.save
 
-language = Language.create(:name => 'Vietnamese')
+language = Language.create(:name => 'Urdu')
 language.save
 
-language = Language.create(:name => 'Urdu')
+language = Language.create(:name => 'Vietnamese')
 language.save
 
 language = Language.create(:name => 'Zulu')
