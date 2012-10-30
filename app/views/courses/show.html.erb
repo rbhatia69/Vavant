@@ -35,12 +35,12 @@
             <li><i class="icon-calendar"></i> <%= @course.updated_at.to_date.to_s(:long) %> </li>
             <li><i class="icon-volume-up"></i> <%= @course.language.name %></li>
             <li><i class="icon-comment"></i><%= @course.no_of_reviews %> comments</li>
+             <li><%= @course.rating %> stars of 5.0</li>
             <li><i class="icon-share"></i><%= @course.no_of_registrations %> registered</li>
             <% if @course.collection_id.nil? %>
             <% else %>
                  <i class="icon-calendar"></i> <%= @course.collection.name %>
             <% end %>
-            <li><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></li>
            </ul>
       </div>
 
@@ -107,8 +107,18 @@
         <% @course.reviews.each do |review| %>
 
             <div class="comment-meta">
-              <%= link_to review.user.username, @review %> - <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
-              <p class="date"><%= review.created_at.to_date.to_s(:long) %></p>
+              <%= link_to review.user.username, @review %> - <%= review.created_at.to_date.to_s(:long) %>
+              <% if review.rating == 1.0 %>
+                <p><i class="icon-star"></i></p>
+              <% elsif review.rating == 2.0 %>
+                <p><i class="icon-star"></i><i class="icon-star"></i></p>
+              <% elsif review.rating == 3.0 %>
+                <p></p><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
+              <% elsif review.rating == 4.0 %>
+                <p><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
+              <% elsif review.rating == 5.0 %>
+                <p><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
+              <% end %>
             </div>
             <div class="comment-body">
               <p><%= review.comment %></p>

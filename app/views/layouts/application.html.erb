@@ -71,10 +71,14 @@
               <div id="collapseTwo" class="accordion-body collapse">
                 <div class="accordion-inner">
                   <ul class="unstyled">
-                   <li><a href="#">Free</a> </li>
-                   <li><a href="#">$0.99 - $5.99</a> </li>
-                   <li><a href="#">$5.99 - $10.99</a> </li>
-                   <li><a href="#">$10.99 and more</a> </li>
+                    <% Course.courses_prices().each do |p|%>
+                       <% if p[0] == "FREE" %>
+                        <li><%= link_to "FREE", root_path(:price => p[0]) %>
+                       <% else %>
+                        <li><%= link_to "$" + p[0] + " and up", root_path(:price => p[0]) %>
+                       <% end %>
+
+                    <% end %>
                   </ul>
                 </div>
               </div>
@@ -104,10 +108,11 @@
               <div id="collapseFour" class="accordion-body collapse">
                 <div class="accordion-inner">
                   <ul class="unstyled">
-                   <li><a href="#"><i class="icon-star"></i></a> </li>
-                   <li><a href="#"><i class="icon-star"></i><i class="icon-star"></i></a> </li>
-                   <li><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
-                   <li><a href="#"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i> and more</a> </li>
+                   <li><a href="/?rating=1.0"><i class="icon-star"></i></a> </li>
+                   <li><a href="/?rating=2.0"><i class="icon-star"></i><i class="icon-star"></i></a> </li>
+                   <li><a href="/?rating=3.0"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
+                   <li><a href="/?rating=4.0"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
+                   <li><a href="/?rating=5.0"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
                   </ul>
                 </div>
               </div>

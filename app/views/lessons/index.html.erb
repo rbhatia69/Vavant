@@ -25,4 +25,4 @@
 
 <br />
 
-<%= link_to 'New Lesson', new_lesson_path(:course_id => @course_id, :course_title => @course_title), :class => 'btn btn-primary', :remote => true %>
+<%= link_to 'New Lesson', new_lesson_path(:course_id => @course_id, :course_title => @course_title), :class => 'btn btn-primary', :onclick=>"window.open(this.href,'create_lesson', 'height=600, width=600');return false;" %>

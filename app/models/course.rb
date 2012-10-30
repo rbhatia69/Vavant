@@ -84,4 +84,21 @@ class Course < ActiveRecord::Base
     return Course.where("language_id = ? and enabled = ?", lang.id, true).order("updated_at DESC")
   end
 
+  def self.courses_by_rating(rating)
+    return Course.where("rating > ? and enabled = ?", rating, true).order("updated_at DESC")
+  end
+
+  def self.courses_by_price(price)
+    if (price == 0)
+      return Course.where("price = ? and enabled = ?", price, true).order("updated_at DESC")
+    else
+      return Course.where("price > ? and enabled = ?", price, true).order("updated_at DESC")
+    end
+
+  end
+
+  def self.courses_prices()
+    return [["FREE"], ["0.01"],  ["0.99"], ["5.99"], ["9.99"], ["15.99"]]
+  end
+
 end
