@@ -17,6 +17,9 @@ class HomeController < ApplicationController
         @courses = Course.courses_by_price(params[:price]).page(params[:page])
       end
       @applied_filters = "$" + params[:price] + " and up"
+    elsif (params[:collection_id])
+      @courses = Course.courses_by_collection(params[:collection_id]).page(params[:page])
+      @applied_filters = params[:collection_name]
     else
       @courses = Course.active_courses().page(params[:page])
     end

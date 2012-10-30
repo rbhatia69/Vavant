@@ -17,4 +17,8 @@ class Collection < ActiveRecord::Base
       c.save
     end
   end
+
+  def self.find_collection_by_name_user(name, user_id)
+    return Collection.where("name = ? and user_id = ?", name, user_id)
+  end
 end

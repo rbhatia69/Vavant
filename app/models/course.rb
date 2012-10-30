@@ -27,7 +27,7 @@ class Course < ActiveRecord::Base
 
   ## accessible attributes
   attr_accessible :collection_id, :description, :enabled, :language_id, :no_of_registrations,
-                  :no_of_reviews, :price, :rating, :title, :user_id, :photo, :tag_list
+                  :no_of_reviews, :price, :rating, :title, :user_id, :photo, :tag_list, :collection_name
 
   ## method to set default values
   before_validation :set_default_values
@@ -101,4 +101,22 @@ class Course < ActiveRecord::Base
     return [["FREE"], ["0.01"],  ["0.99"], ["5.99"], ["9.99"], ["15.99"]]
   end
 
+  def collection_name
+    if (!self.collection_id.nil?)
+      self.collection.name
+    else
+      nil
+    end
+  end
+
+  def collection_name=(name)
+    collection = Collection.find_collection_by_name_user(name, self.user_id)
+    if (collection.length == 0)
+      coll = Collection.create(:name => name, :user_id => user_id)
+      self.collection_id = coll.id
+    else
+      self.collection_id = collection[0].id
+    end
+
+  end
 end

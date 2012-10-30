@@ -30,7 +30,7 @@
                  | <i class="icon-share"></i><%= course.no_of_registrations %> registered
                  <% if course.collection_id.nil? %>
                  <% else %>
-                     | <i class="icon-calendar"></i> <%= course.collection.name %>
+                     | <i class="icon-folder-open"></i> <%= link_to course.collection_name, root_path(:collection_id =>  course.collection_id, :collection_name => course.collection_name) %><%=  %>
                  <% end %>
                  | <i class="icon-volume-up"></i> <%= course.language.name %>
                </p>

@@ -25,7 +25,7 @@
                 | <i class="icon-share"></i><%= course.no_of_registrations %> registered
                 <% if course.collection_id.nil? %>
                 <% else %>
-                    | <i class="icon-calendar"></i> <%= course.collection.name %>
+                    | <i class="icon-folder-open"></i> <%= course.collection_name %>
                 <% end %>
                 | <i class="icon-volume-up"></i> <%= course.language.name %>
               </p>
