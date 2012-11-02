@@ -1,4 +1,4 @@
-<h1>Authored Courses</h1>
+<h1>My Courses</h1>
 <div class="blog-post">
 
      <% @courses.each do |course| %>
@@ -21,7 +21,8 @@
               <p>
                 <i class="icon-user"></i> by <%= link_to course.user.username, course %>
                 | <i class="icon-calendar"></i> <%= course.updated_at.to_date.to_s(:long) %>
-                | <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>(<%= course.no_of_reviews %> comments)
+                | <i class="icon-comment"></i><%= course.no_of_reviews %> comments</li>
+                | <%= course.rating %> stars of 5.0</li>
                 | <i class="icon-share"></i><%= course.no_of_registrations %> registered
                 <% if course.collection_id.nil? %>
                 <% else %>

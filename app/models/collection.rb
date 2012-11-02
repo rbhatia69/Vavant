@@ -21,4 +21,14 @@ class Collection < ActiveRecord::Base
   def self.find_collection_by_name_user(name, user_id)
     return Collection.where("name = ? and user_id = ?", name, user_id)
   end
+
+  def self.find_collection_by_user(user_id)
+
+    stmt = "select cl.name name, cl.id id, count(cr.id) total from collections cl
+            left join courses cr on cl.id = cr.collection_id and cl.user_id = " + user_id.to_s() +
+            " group by cl.name, cl.id order by cl.name"
+
+    return Collection.find_by_sql(stmt)
+
+  end
 end

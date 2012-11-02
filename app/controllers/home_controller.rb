@@ -10,6 +10,9 @@ class HomeController < ApplicationController
     elsif (params[:rating])
       @courses = Course.courses_by_rating(params[:rating]).page(params[:page])
       @applied_filters = params[:rating] + "+ stars"
+    elsif (params[:language_name])
+      @courses = Course.courses_by_language(params[:language_name]).page(params[:page])
+      @applied_filters = params[:language_name]
     elsif (params[:price])
       if (params[:price] == "FREE")
         @courses = Course.courses_by_price(0).page(params[:page])

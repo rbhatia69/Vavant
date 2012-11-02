@@ -35,7 +35,7 @@
             <li><i class="icon-calendar"></i> <%= @course.updated_at.to_date.to_s(:long) %> </li>
             <li><i class="icon-volume-up"></i> <%= @course.language.name %></li>
             <li><i class="icon-comment"></i><%= @course.no_of_reviews %> comments</li>
-             <li><%= @course.rating %> stars of 5.0</li>
+            <li><%= @course.rating %> stars of 5.0</li>
             <li><i class="icon-share"></i><%= @course.no_of_registrations %> registered</li>
             <% if @course.collection_id.nil? %>
             <% else %>

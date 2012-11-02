@@ -11,7 +11,7 @@
         <%= image_tag @course.photo.url(), :size => "200x200" %><p><br></p>
     <% end %>
     <%= f.file_field :photo %>
-    <%= f.input :enabled %>
+    <%= f.input :enabled, :label => 'Enable?'%>
   <% end %>
 
   <%= f.actions do %>

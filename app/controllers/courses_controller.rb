@@ -15,7 +15,7 @@ class CoursesController < ApplicationController
 
   def register
     @register = Registration.new(:user_id => current_user.id, :course_id => params[:course_id])
-   if @register.save
+    if @register.save
         redirect_to(course_path(:id => params[:course_id]), :notice => 'You have successfully registered for the course.')
     end
   end
@@ -39,7 +39,6 @@ class CoursesController < ApplicationController
     @course = Course.new
   end
 
-  # GET /courses/1/edit
   def edit
     @course = Course.find(params[:id])
   end
@@ -56,8 +55,6 @@ class CoursesController < ApplicationController
 
   end
 
-  # PUT /courses/1
-  # PUT /courses/1.json
   def update
     @course = Course.find(params[:id])
 
@@ -68,8 +65,6 @@ class CoursesController < ApplicationController
     end
   end
 
-  # DELETE /courses/1
-  # DELETE /courses/1.json
   def destroy
     @course = Course.find(params[:id])
     @course.destroy
