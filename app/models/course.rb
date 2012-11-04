@@ -79,6 +79,10 @@ class Course < ActiveRecord::Base
     return Course.where("user_id = ?", user_id).order("updated_at DESC")
   end
 
+  def self.courses_authored_by_user_by_collection(user_id, collection_id)
+    return Course.where("user_id = ? and collection_id = ?", user_id, collection_id).order("updated_at DESC")
+  end
+
   def self.courses_by_language(lang_name)
     lang = Language.where("name = ?", lang_name).first
     return Course.where("language_id = ? and enabled = ?", lang.id, true).order("updated_at DESC")

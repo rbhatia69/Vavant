@@ -31,4 +31,13 @@ class Collection < ActiveRecord::Base
     return Collection.find_by_sql(stmt)
 
   end
+
+  def self.find_collection_name_by_user(user_id)
+
+    stmt = "select name from collections cl where cl.user_id = " + user_id.to_s()
+
+    return Collection.find_by_sql(stmt).map {|i| i.name}
+
+  end
+
 end

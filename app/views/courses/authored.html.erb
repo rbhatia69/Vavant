@@ -19,14 +19,18 @@
           <div class="row">
             <div class="span9">
               <p>
-                <i class="icon-user"></i> by <%= link_to course.user.username, course %>
+                <% if course.enabled %>
+                    <span class="label label-success">Enabled</span>
+                <% else %>
+                    <span class="label label-warning">Not Enabled</span>
+                <% end %>
                 | <i class="icon-calendar"></i> <%= course.updated_at.to_date.to_s(:long) %>
                 | <i class="icon-comment"></i><%= course.no_of_reviews %> comments</li>
                 | <%= course.rating %> stars of 5.0</li>
                 | <i class="icon-share"></i><%= course.no_of_registrations %> registered
                 <% if course.collection_id.nil? %>
                 <% else %>
-                    | <i class="icon-folder-open"></i> <%= course.collection_name %>
+                    | <i class="icon-folder-open"></i> <%= link_to course.collection_name, courses_authored_path(:collection_id => course.collection_id) %>
                 <% end %>
                 | <i class="icon-volume-up"></i> <%= course.language.name %>
               </p>

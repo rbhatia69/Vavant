@@ -6,7 +6,11 @@ class CoursesController < ApplicationController
   end
 
   def authored
-    @courses = Course.courses_authored_by_user(current_user.id).page(params[:page])
+    if (params[:collection_id].nil?)
+      @courses = Course.courses_authored_by_user(current_user.id).page(params[:page])
+    else
+      @courses = Course.courses_authored_by_user_by_collection(current_user.id, params[:collection_id]).page(params[:page])
+    end
   end
 
   def registered
@@ -37,10 +41,14 @@ class CoursesController < ApplicationController
 
   def new
     @course = Course.new
+
+    @collections_list = Collection.find_collection_name_by_user(current_user.id)
   end
 
   def edit
     @course = Course.find(params[:id])
+
+    @collections_list = Collection.find_collection_name_by_user(current_user.id)
   end
 
   def create

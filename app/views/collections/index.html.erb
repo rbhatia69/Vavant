@@ -17,7 +17,7 @@
           <tr>
             <input type="hidden" name="id[]" value=<%= c.id %>>
             <td><input type="text" name="collection_name[]" value="<%= c.name %>"></td>
-            <td><%= c.total %></td>
+            <td><%= link_to c.total, courses_authored_path(:collection_id => c.id) %></td>
             <td><%= link_to 'Destroy', c, confirm: 'Are you sure?', method: :delete, :class => 'btn btn-danger' %></td>
           </tr>
         <% end %>
