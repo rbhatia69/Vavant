@@ -45,88 +45,6 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="span3">
-        <div class="widget">
-        <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                  Tags
-                </a>
-              </div>
-              <div id="collapseOne" class="accordion-body collapse in">
-                <div class="accordion-inner">
-                  <div id="tag_cloud">
-                    <% tag_cloud Course.tag_counts, %w{s m l} do |tag, css_class| %>
-                      <%= link_to tag.name, tag_path(tag.name), class: css_class %>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                  Price Range
-                </a>
-              </div>
-              <div id="collapseTwo" class="accordion-body collapse">
-                <div class="accordion-inner">
-                  <ul class="unstyled">
-                    <% Course.courses_prices().each do |p|%>
-                       <% if p[0] == "FREE" %>
-                        <li><%= link_to "FREE", root_path(:price => p[0]) %>
-                       <% else %>
-                        <li><%= link_to "$" + p[0] + " and up", root_path(:price => p[0]) %>
-                       <% end %>
-
-                    <% end %>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          <div class="accordion-group">
-            <div class="accordion-heading">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-                Language
-              </a>
-            </div>
-            <div id="collapseThree" class="accordion-body collapse">
-              <div class="accordion-inner">
-                <ul class="unstyled">
-                 <% Language.used_languages().each do |l|%>
-                    <li><%= link_to l.name, root_path(:language_name => l.name) %>
-                 <% end %>
-                </ul>
-              </div>
-            </div>
-          </div>
-            <div class="accordion-group">
-              <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-                  Ratings
-                </a>
-              </div>
-              <div id="collapseFour" class="accordion-body collapse">
-                <div class="accordion-inner">
-                  <ul class="unstyled">
-                   <li><a href="/?rating=1.0"><i class="icon-star"></i></a> </li>
-                   <li><a href="/?rating=2.0"><i class="icon-star"></i><i class="icon-star"></i></a> </li>
-                   <li><a href="/?rating=3.0"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
-                   <li><a href="/?rating=4.0"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
-                   <li><a href="/?rating=5.0"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-</div>
-
-
-      </div>
-      <div class="span9">
         <% flash.each do |name, msg| %>
           <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
             <a class="close" data-dismiss="alert">x</a>
@@ -134,13 +52,15 @@
           </div>
         <% end %>
         <%= yield %>
-      </div>
     </div>
-    <hr>
 
-      <footer>
-        &copy; Company 2012 | <%= link_to 'what is vavant', home_whatis_path %> | <a href="#">About Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | <a href="#">Contact Us</a>
-      </footer>
+     <footer>
+       <div class="container">
+          <br>
+          &copy; Company 2012 | <%= link_to 'what is vavant', home_whatis_path %> | <a href="#">About Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | <a href="#">Contact Us</a>
+          <br>
+       </div>
+     </footer>
   </div>
 
 </body>

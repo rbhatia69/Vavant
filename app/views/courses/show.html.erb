@@ -7,11 +7,96 @@
   <% end %>
 </h2>
 
+<div class="span12">
 <div class="row">
-  <div class="span6">
+  <div class="span9">
+    <div class="row">
     <p></p>
-
     <p class="lead"><%= image_tag @course.photo.url(), :size => "100x100", :class => 'img-polaroid' %> <%= raw @course.description %></p>
+    </div>
+    <hr>
+
+    <% if @course.lessons.count > 0 %>
+
+    <div class="row">
+      <h3>Lessons</h3>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Lesson</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+
+          <% @course.lessons.each do |lesson| %>
+            <tr>
+              <td><%= link_to lesson.title, lesson %><br><%= lesson.description %></td>
+              <td>
+                <%= link_to 'Launch', edit_course_path(lesson), :class => 'btn btn-mini' %>
+              </td>
+            </tr>
+
+          <% end %>
+
+      </table>
+    </div>
+
+    <hr>
+
+    <% end %>
+
+    <% if @course.reviews.count > 0 %>
+
+        <div class="row">
+          <h3>Comments (<%= @course.reviews.count %>)</h3>
+
+            <% @course.reviews.each do |review| %>
+
+                <div class="comment-meta">
+                  <%= link_to review.user.username, @review %> - <%= review.created_at.to_date.to_s(:long) %>
+                  <% if review.rating == 1.0 %>
+                    <p><i class="icon-star"></i></p>
+                  <% elsif review.rating == 2.0 %>
+                    <p><i class="icon-star"></i><i class="icon-star"></i></p>
+                  <% elsif review.rating == 3.0 %>
+                    <p></p><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
+                  <% elsif review.rating == 4.0 %>
+                    <p><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
+                  <% elsif review.rating == 5.0 %>
+                    <p><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
+                  <% end %>
+                </div>
+                <div class="comment-body">
+                  <p><%= review.comment %></p>
+                </div>
+            <% end %>
+
+        </div>
+
+        <hr>
+    <% end %>
+
+    <% if @is_user_registered %>
+
+        <a id="post_comment"></a>
+        <div class="row">
+            <div class="well">
+
+              <%= semantic_form_for @review, :html => { :multipart => true } do |f| %>
+                <%= f.inputs do %>
+                  <%= f.input :rating, :as => :select, :collection => [["1 star", 1], ["2 stars", 2], ["3 stars", 3], ["4 stars", 4], ["5 stars", 5]]%>
+                  <%= f.input :comment %>
+                  <%= f.input :course_id, :as => :hidden  %>
+                  <%= f.input :user_id, :as => :hidden %>
+                <% end %>
+
+                <%= f.actions do %>
+                  <%= f.action :submit, :as => :input, :label => 'Post Comment' %>
+                <% end %>
+              <% end %>
+           </div>
+        </div>
+    <% end %>
 
   </div>
 
@@ -53,102 +138,36 @@
         <% end %>
       </div>
 
-    <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style ">
-    <a class="addthis_button_preferred_1"></a>
-    <a class="addthis_button_preferred_2"></a>
-    <a class="addthis_button_preferred_3"></a>
-    <a class="addthis_button_preferred_4"></a>
-    <a class="addthis_button_compact"></a>
-    <a class="addthis_counter addthis_bubble_style"></a>
-    </div>
-    <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ed2dd07037dfe"></script>
-    <!-- AddThis Button END -->
+      <div class="widget">
+        <h5 class="sidebar-title">Share </h5>
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style">
+        <a class="addthis_button_preferred_1"></a>
+        <a class="addthis_button_preferred_2"></a>
+        <a class="addthis_button_preferred_3"></a>
+        <a class="addthis_button_preferred_4"></a>
+        <a class="addthis_button_compact"></a>
+        <a class="addthis_counter addthis_bubble_style"></a>
+        </div>
+        <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508ed2dd07037dfe"></script>
+        <!-- AddThis Button END -->
+      </div>
+      <% if @recommended_courses.length > 0 %>
+          <h5 class="sidebar-title">Recommended Courses</h5>
+          <div class="well">
+              <table class="table table-striped">
+                <% @recommended_courses.each do |course| %>
+                    <tr>
+                        <td width="40%"><%= image_tag course.photo.url(), :size => "50x50", :class => 'img-polaroid' %></td>
+                        <td width="60%"><%= link_to course.title, course %><br><%= course.no_of_registrations %> registered<br><%= course.rating %> stars<br>by <%= link_to course.user.username, course %></td>
+                    </tr>
+                <% end %>
+              </table>
+          </div>
+      <% end %>
 
   </div>
 </div>
-<hr>
 
-<% if @course.lessons.count > 0 %>
 
-<div class="row">
-  <h3>Lessons</h3>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Lesson</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-
-      <% @course.lessons.each do |lesson| %>
-        <tr>
-          <td><%= link_to lesson.title, lesson %><br><%= lesson.description %></td>
-          <td>
-            <%= link_to 'Launch', edit_course_path(lesson), :class => 'btn btn-mini' %>
-          </td>
-        </tr>
-
-      <% end %>
-
-  </table>
-</div>
-
-<hr>
-
-<% end %>
-
-<% if @course.reviews.count > 0 %>
-
-    <div class="row">
-      <h3>Comments (<%= @course.reviews.count %>)</h3>
-
-      <div class="span9">
-        <% @course.reviews.each do |review| %>
-
-            <div class="comment-meta">
-              <%= link_to review.user.username, @review %> - <%= review.created_at.to_date.to_s(:long) %>
-              <% if review.rating == 1.0 %>
-                <p><i class="icon-star"></i></p>
-              <% elsif review.rating == 2.0 %>
-                <p><i class="icon-star"></i><i class="icon-star"></i></p>
-              <% elsif review.rating == 3.0 %>
-                <p></p><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
-              <% elsif review.rating == 4.0 %>
-                <p><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
-              <% elsif review.rating == 5.0 %>
-                <p><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></p>
-              <% end %>
-            </div>
-            <div class="comment-body">
-              <p><%= review.comment %></p>
-            </div>
-        <% end %>
-      </div>
-
-    </div>
-
-    <hr>
-<% end %>
-
-<% if @is_user_registered %>
-
-    <a id="post_comment"></a>
-    <div class="row">
-        <div class="span8 well">
-
-          <%= semantic_form_for @review, :html => { :multipart => true } do |f| %>
-            <%= f.inputs do %>
-              <%= f.input :rating, :as => :select, :collection => [["1 star", 1], ["2 stars", 2], ["3 stars", 3], ["4 stars", 4], ["5 stars", 5]]%>
-              <%= f.input :comment %>
-              <%= f.input :course_id, :as => :hidden  %>
-              <%= f.input :user_id, :as => :hidden %>
-            <% end %>
-
-            <%= f.actions do %>
-              <%= f.action :submit, :as => :input, :label => 'Post Comment' %>
-            <% end %>
-          <% end %>
-    </div>
-<% end %>
 </div>

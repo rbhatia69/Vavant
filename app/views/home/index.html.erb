@@ -1,17 +1,92 @@
-<div class="blog-post">
-  <% if @applied_filters.length > 0 %>
-      <div class="row">
-           <div class="span9">
-                <b>Applied Filter: </b><span class="label label-important"><%= @applied_filters %></span>
+
+<div class="span3">
+  <div class="widget">
+  <div class="accordion" id="accordion2">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+            Tags
+          </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            <div id="tag_cloud">
+              <% tag_cloud Course.tag_counts, %w{s m l} do |tag, css_class| %>
+                <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+              <% end %>
+            </div>
           </div>
+        </div>
       </div>
-  <% end %>
-  <% @courses.each do |course| %>
-        <div class="row">
-         <div class="span9">
-           <div class="blog-post">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+            Price Range
+          </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body collapse">
+          <div class="accordion-inner">
+            <ul class="unstyled">
+              <% Course.courses_prices().each do |p|%>
+                 <% if p[0] == "FREE" %>
+                  <li><%= link_to "FREE", root_path(:price => p[0]) %>
+                 <% else %>
+                  <li><%= link_to "$" + p[0] + " and up", root_path(:price => p[0]) %>
+                 <% end %>
+
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+          Language
+        </a>
+      </div>
+        <div id="collapseThree" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <ul class="unstyled">
+           <% Language.used_languages().each do |l|%>
+              <li><%= link_to l.name, root_path(:language_name => l.name) %>
+           <% end %>
+          </ul>
+        </div>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+            Ratings
+          </a>
+        </div>
+        <div id="collapseFour" class="accordion-body collapse">
+          <div class="accordion-inner">
+            <ul class="unstyled">
+             <li><a href="/?rating=1.0"><i class="icon-star"></i></a> </li>
+             <li><a href="/?rating=2.0"><i class="icon-star"></i><i class="icon-star"></i></a> </li>
+             <li><a href="/?rating=3.0"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
+             <li><a href="/?rating=4.0"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
+             <li><a href="/?rating=5.0"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></a> </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="span9">
+      <% if @applied_filters.length > 0 %>
+          <div class="row">
+            <b>Applied Filter: </b><span class="label label-important"><%= @applied_filters %></span>
+          </div>
+      <% end %>
+      <% @courses.each do |course| %>
            <div class="row">
-             <div class="span9">
                <h3 class="post-title"><%= link_to course.title, course %>
                <% if course.price == 0.0 %>
                    <span class="price-color">- FREE</span>
@@ -19,10 +94,8 @@
                    <span class="price-color">- $ <%= course.price %></span>
                <% end %>
                </h3>
-             </div>
            </div>
            <div class="row">
-             <div class="span9">
                <p>
                  <i class="icon-user"></i> by <%= link_to course.user.username, course %>
                  | <i class="icon-calendar"></i> <%= course.updated_at.to_date.to_s(:long) %>
@@ -35,40 +108,31 @@
                  | <i class="icon-volume-up"></i> <%= course.language.name %>
                </p>
              </div>
-           </div>
            <div class="row">
-              <div class="span9">
-                <p>
-                  <% if course.tag_list.size > 0 %>
-                      <i class="icon-tags"></i> Tags:
-                      <% course.tag_list.each do |t| %>
-                          <%= link_to t, tag_path(t), :class => "label label-info" %>
+                    <p>
+                      <% if course.tag_list.size > 0 %>
+                          <i class="icon-tags"></i> Tags:
+                          <% course.tag_list.each do |t| %>
+                              <%= link_to t, tag_path(t), :class => "label label-info" %>
+                          <% end %>
                       <% end %>
-                  <% end %>
-                </p>
-              </div>
+                    </p>
            </div>
            <div class="row">
-             <div class="span2">
-               <%= image_tag course.photo.url(), :size => "100x100", :class => 'thumbnail' %>
-             </div>
-             <div class="span7">
-               <p>
-                 <%= raw course.description %>
-               </p>
-             </div>
+                 <div class="span2">
+                   <%= image_tag course.photo.url(), :size => "100x100", :class => 'thumbnail' %>
+                 </div>
+                 <div class="span7">
+                   <p>
+                     <%= raw course.description %>
+                   </p>
+                 </div>
            </div>
-           <div class="row">
-
+           <hr>
+      <% end %>
+      <div class="row">
+           <div class="span9">
+              <%= will_paginate @courses, :container => false %>
            </div>
-         </div>
-         </div>
-        </div>
-        <hr>
-  <% end %>
-  <div class="row">
-       <div class="span9">
-          <%= will_paginate @courses, :container => false %>
-       </div>
-  </div>
+      </div>
 </div>

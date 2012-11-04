@@ -1,12 +1,10 @@
 <h1>My Courses</h1>
-<div class="blog-post">
 
+
+<div class="blog-post">
+     <div class="span12">
      <% @courses.each do |course| %>
        <div class="row">
-        <div class="span9">
-          <div class="blog-post">
-          <div class="row">
-            <div class="span9">
               <h3 class="post-title"><%= link_to course.title, course %>
                 <% if course.price == 0.0 %>
                      <span class="price-color">- FREE</span>
@@ -14,10 +12,8 @@
                      <span class="price-color">- $ <%= course.price %></span>
                 <% end %>
               </h3>
-            </div>
-          </div>
-          <div class="row">
-            <div class="span9">
+       </div>
+       <div class="row">
               <p>
                 <% if course.enabled %>
                     <span class="label label-success">Enabled</span>
@@ -34,10 +30,8 @@
                 <% end %>
                 | <i class="icon-volume-up"></i> <%= course.language.name %>
               </p>
-            </div>
-          </div>
-          <div class="row">
-             <div class="span9">
+       </div>
+       <div class="row">
                <p>
                  <% if course.tag_list.size > 0 %>
                      <i class="icon-tags"></i> Tags:
@@ -46,34 +40,31 @@
                      <% end %>
                  <% end %>
                </p>
-             </div>
-          </div>
-          <div class="row">
+       </div>
+       <div class="row">
             <div class="span2">
               <%= image_tag course.photo.url(), :size => "100x100", :class => 'thumbnail' %>
             </div>
-            <div class="span7">
+            <div class="span10">
               <p>
                 <%= raw course.description %>
               </p>
             </div>
-          </div>
-            <div class="row">
+       </div>
+       <div class="row">
               <div class="span2"><p></p></div>
-              <div class="span7">
+              <div class="span10">
                 <%= link_to 'Edit', edit_course_path(course), :class => 'btn' %>
                 <%= link_to 'Copy', edit_course_path(course), :class => 'btn btn-success' %>
                 <%= link_to 'Lessons (' + course.lessons.count.to_s + ')', lessons_path(:course_id => course, :course_title => course.title), :class => 'btn btn-primary' %>
                 <%= link_to 'Destroy', course, confirm: 'Are you sure?', method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
               </div>
-            </div>
         </div>
-        </div>
-       </div>
        <hr>
     <% end %>
     <div class="row">
         <%= will_paginate @courses, :container => false %>
+    </div>
     </div>
 </div>
 

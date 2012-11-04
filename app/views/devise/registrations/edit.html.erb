@@ -5,8 +5,8 @@
     <%= f.inputs do %>
         <%= f.input  :email, :as => :email %>
         <%= f.input  :username %>
-        <%= f.input  :password, :input_html => { :placeholder => 'leave blank if no change', :autocomplete => "off" } %>
-        <%= f.input  :password_confirmation %>
+        <%= f.input  :password, :input_html => { :placeholder => 'leave blank if no change', :autocomplete => "off" }, :label => 'New Password' %>
+        <%= f.input  :password_confirmation,  :label => 'New Password Confirmation' %>
         <%= f.input  :current_password, :input_html => { :placeholder => 'need password to save changes' } %>
     <% end %>
 

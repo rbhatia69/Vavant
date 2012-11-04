@@ -79,6 +79,10 @@ class Course < ActiveRecord::Base
     return Course.where("user_id = ?", user_id).order("updated_at DESC")
   end
 
+  def self.courses_by_user(user_id)
+    return Course.where("user_id = ? and enabled = ?", user_id, true).order("updated_at DESC")
+  end
+
   def self.courses_authored_by_user_by_collection(user_id, collection_id)
     return Course.where("user_id = ? and collection_id = ?", user_id, collection_id).order("updated_at DESC")
   end
@@ -123,4 +127,28 @@ class Course < ActiveRecord::Base
     end
 
   end
+
+  def recommended_courses()
+    recommendations = Hash.new()
+    max_no = 1
+
+    ##
+    ## check tagged course
+    ## TO DO
+
+    if (self.collection_id.nil?)
+      ## do nothing
+    else
+      ##recommendations.merge(Course.courses_by_collection(self.collection_id))
+    end
+
+    if (recommendations.length > max_no)
+      ##return recommendations
+    end
+
+    ##recommendations.merge(Course.courses_authored_by_user(self.user_id))
+    return Course.courses_by_user(self.user_id)
+
+  end
+
 end

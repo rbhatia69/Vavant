@@ -37,6 +37,7 @@ class CoursesController < ApplicationController
       @review.user_id = current_user.id
     end
 
+    @recommended_courses = @course.recommended_courses()
   end
 
   def new
