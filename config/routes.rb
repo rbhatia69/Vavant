@@ -1,4 +1,6 @@
 Vavant::Application.routes.draw do
+  resources :materials
+
   mount Ckeditor::Engine => '/ckeditor'
 
   mount Ckeditor::Engine => "/ckeditor"

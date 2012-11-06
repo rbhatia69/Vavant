@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Content type:</b>
+  <%= @material.content_type %>
+</p>
+
+<p>
+  <b>Detail content:</b>
+  <%= @material.detail_content %>
+</p>
+
+<p>
+  <b>Embedded content:</b>
+  <%= @material.embedded_content %>
+</p>
+
+<p>
+  <b>Stored file name:</b>
+  <%= @material.stored_file_name %>
+</p>
+
+<p>
+  <b>Stored content type:</b>
+  <%= @material.stored_content_type %>
+</p>
+
+<p>
+  <b>Stored file size:</b>
+  <%= @material.stored_file_size %>
+</p>
+
+<p>
+  <b>Stored updated at:</b>
+  <%= @material.stored_updated_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_material_path(@material) %> |
+<%= link_to 'Back', materials_path %>
