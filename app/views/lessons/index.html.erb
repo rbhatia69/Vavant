@@ -1,28 +1,38 @@
-<h1>Lessons - <span class="post-title"><%= link_to @course_title, edit_course_path(@course_id) %></span></h1>
+<div class="page-header">
+<h1 class="page-title">Lessons - <span class="post-title"><%= link_to @course_title, edit_course_path(@course_id) %></span></h1>
+</div>
 
-<% if @lessons.count > 0 %>
 
-    <table class="table table-striped">
-      <tr>
-        <th>No.</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th></th>
-      </tr>
 
-    <% @count = 1 %>
-    <% @lessons.each do |lesson| %>
-      <tr>
-        <td><%=  @count %></td>
-        <td><%= lesson.title %></td>
-        <td><%= lesson.description %></td>
-        <td><%= link_to 'Edit', edit_lesson_path(lesson), :class => 'btn btn-mini'%>
-        <%= link_to 'Destroy', lesson, confirm: 'Are you sure?', method: :delete, :class => 'btn btn-mini btn-danger' %></td>
-      </tr>
-    <% end %>
-    </table>
-<% end %>
+<br>
+<div class="blog-post">
+     <div class="span12">
+       <% count = 1 %>
+       <% @lessons.each do |lesson| %>
+             <div class="row">
+                    <h3 class="post-title"><%= count %>. <%= link_to lesson.title, lesson %>
+                    </h3>
+             </div>
+             <div class="row">
+                    <p>
+                      <%= raw lesson.description %>
+                    </p>
+             </div>
+             <div class="row">
+                  <div class="span2"><p></p></div>
+                  <div class="span10">
+                    <%= link_to 'Edit', edit_lesson_path(lesson), :class => 'btn' %>
+                    <%= link_to 'Show', lesson, :class => 'btn btn-success' %>
+                    <%= link_to 'Materials (0)', lesson, :class => 'btn btn-primary' %>
+                    <%= link_to 'Destroy', lesson, confirm: 'Are you sure?', method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+                  </div>
+             </div>
+             <% count = count + 1 %>
+            <hr>
+       <% end %>
+     </div>
+</div>
 
 <br />
 
-<%= link_to 'New Lesson', new_lesson_path(:course_id => @course_id, :course_title => @course_title), :class => 'btn btn-primary', :onclick=>"window.open(this.href,'create_lesson', 'height=600, width=600');return false;" %>
+<%= link_to 'New Lesson', new_lesson_path(:course_id => @course_id, :course_title => @course_title), :class => 'btn btn-primary' %>

@@ -1,17 +1,18 @@
-<h1>My Materials</h1>
-<h6>Materials - content associated with lessons - can either be stored in Vavant as files or rich content or linked to sites - YouTube, Scribd, Vimeo etc.</h6>
-<br>
+<div class="page-header">
+<h1 class="page-title">My Materials</h1>
+</div>
+
 <div class="blog-post">
      <div class="span12">
        <% @materials.each do |material| %>
            <div class="row">
                   <p>
                     <% if material.content_type == 1 %>
-                        <span class="label label-success">Stored - Rich Text</span>
+                        <span class="label label-success">stored - rich text</span>
                     <% elsif material.content_type == 2 %>
-                        <span class="label label-success">Linked from sites</span>
+                        <span class="label label-success">linked from sites</span>
                     <% else %>
-                        <span class="label label-success">Stored - File</span>
+                        <span class="label label-success">stored - file</span>
                     <% end %>
                     | <i class="icon-calendar"></i> <%= material.updated_at.to_date.to_s(:long) %>
                     | <i class="icon-share"></i>8 associated lessons
