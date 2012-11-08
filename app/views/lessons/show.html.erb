@@ -1,25 +1,37 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+<h1 class="page-title"><%= @lesson.title %>
+</h1>
+</div>
 
-<p>
-  <b>Title:</b>
-  <%= @lesson.title %>
-</p>
+<div class="span12">
+<div class="row">
+  <div class="span9">
+    <div class="row">
+      <div class="well">
+        <p class="lead"><%= raw @lesson.description %></p>
+      </div>
+    </div>
 
-<p>
-  <b>Description:</b>
-  <%= @lesson.description %>
-</p>
+    <% if @lesson.materials.count > 0 %>
+             <div class="span8">
+                   <% @lesson.materials.each do |material| %>
+                     <div class="row">
+                       <% if material.content_type == 1 %>
+                          <%= raw material.detail_content %>
+                       <% elsif material.content_type == 2 %>
+                          <%= material..embedded_content %>
+                       <% else %>
+                           <i class="icon-file"></i>
+                       <% end %>
+                     </div>
+                   <% end %>
+             </div>
+    <% end %>
 
-<p>
-  <b>Course:</b>
-  <%= @lesson.course_id %>
-</p>
 
-<p>
-  <b>Sequence:</b>
-  <%= @lesson.sequence %>
-</p>
+  </div>
+
+</div>
 
 
-<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
-<%= link_to 'Back', lessons_path %>
+</div>

@@ -1,48 +1,47 @@
-
-<h2><%= @course.title %>
+<div class="page-header">
+<h1 class="page-title"><%= @course.title %> -
   <% if @course.price == 0.0 %>
        <span class="price-color">- FREE</span>
   <% else %>
        <span class="price-color">- $ <%= @course.price %></span>
   <% end %>
-</h2>
+</h1>
+</div>
 
 <div class="span12">
 <div class="row">
   <div class="span9">
     <div class="row">
-    <p></p>
-    <p class="lead"><%= image_tag @course.photo.url(), :size => "100x100", :class => 'img-polaroid' %> <%= raw @course.description %></p>
+        <p></p>
+        <p class="lead"><%= image_tag @course.photo.url(), :size => "100x100", :class => 'img-polaroid' %> <%= raw @course.description %></p>
     </div>
-    <hr>
 
     <% if @course.lessons.count > 0 %>
-
-    <div class="row">
-      <h3>Lessons</h3>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>Lesson</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-
-          <% @course.lessons.each do |lesson| %>
-            <tr>
-              <td><%= link_to lesson.title, lesson %><br><%= lesson.description %></td>
-              <td>
-                <%= link_to 'Launch', edit_course_path(lesson), :class => 'btn btn-mini' %>
-              </td>
-            </tr>
-
-          <% end %>
-
-      </table>
-    </div>
-
-    <hr>
-
+             <div class="span8">
+               <table class="table table-bordered table-condensed table-hover">
+                 <tbody>
+                   <% count = 1 %>
+                   <% @course.lessons.each do |lesson| %>
+                       <tr>
+                         <td><%= count %>.</td>
+                         <td><%= link_to lesson.title, lesson %></td>
+                         <td>
+                           <%  lesson.materials.each do |material| %>
+                               <% if material.content_type == 1 %>
+                                  <i class="icon-briefcase"></i>
+                               <% elsif material.content_type == 2 %>
+                                  <i class="icon-bookmark"></i>
+                               <% else %>
+                                   <i class="icon-file"></i>
+                               <% end %>
+                           <% end %>
+                         </td>
+                       </tr>
+                       <% count = count + 1 %>
+                   <% end %>
+                 </tbody>
+               </table>
+             </div>
     <% end %>
 
     <% if @course.reviews.count > 0 %>
@@ -102,7 +101,7 @@
 
   <div class="span3">
       <% if @is_user_registered %>
-        <p><%= link_to 'Lessons', courses_register_path(@course), :class => 'btn btn-large btn-info' %></p>
+        <p><%= link_to 'Launch Lessons', courses_register_path(@course), :class => 'btn btn-large btn-info' %></p>
         <%= link_to 'Post a comment', {:anchor => 'post_comment'}, :class => 'btn btn-large btn-warning' %>
       <% else %>
         <% if @course.price > 0 %>
@@ -118,13 +117,13 @@
             </li>
             <li><i class="icon-user"></i> by <%= link_to @course.user.username, @course %></li>
             <li><i class="icon-calendar"></i> <%= @course.updated_at.to_date.to_s(:long) %> </li>
-            <li><i class="icon-volume-up"></i> <%= @course.language.name %></li>
+            <li><i class="icon-volume-up"></i><%= link_to  @course.language.name, root_path(:language_name =>  @course.language.name) %></li>
             <li><i class="icon-comment"></i><%= @course.no_of_reviews %> comments</li>
             <li><%= @course.rating %> stars of 5.0</li>
             <li><i class="icon-share"></i><%= @course.no_of_registrations %> registered</li>
             <% if @course.collection_id.nil? %>
             <% else %>
-                 <i class="icon-calendar"></i> <%= @course.collection.name %>
+                 <i class="icon-calendar"></i><%= link_to @course.collection_name, root_path(:collection_id =>  @course.collection_id, :collection_name => @course.collection_name) %>
             <% end %>
            </ul>
       </div>

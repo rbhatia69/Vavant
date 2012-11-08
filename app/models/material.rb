@@ -1,7 +1,7 @@
 class Material < ActiveRecord::Base
   has_and_belongs_to_many :lessons
 
-  attr_accessible :content_type, :detail_content, :embedded_content, :stored, :user_id
+  attr_accessible :content_type, :detail_content, :embedded_content, :stored, :user_id, :lesson_ids
   has_attached_file :stored
   validates_presence_of :content_type, :user_id
   validates_inclusion_of :content_type, :in => 1..3

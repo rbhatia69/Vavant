@@ -1,8 +1,7 @@
 <%= semantic_form_for @lesson, :html => { :multipart => true } do |f| %>
   <%= f.inputs do %>
     <%= f.input :title,  :input_html => { :size => 50 } %>
-    <%= f.input :description %>
-    <%= f.input :course_id, :as => :hidden  %>
+    <%= f.input :description, :as => :ckeditor, :input_html => { :toolbar => 'Easy'} %>    <%= f.input :course_id, :as => :hidden  %>
     <%= f.input :sequence, :as => :hidden %>
   <% end %>
 

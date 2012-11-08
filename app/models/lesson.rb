@@ -6,7 +6,7 @@ class Lesson < ActiveRecord::Base
   validates :title, :presence => true, :length => {:in => 1..80}
   validates :course_id, :presence => true
 
-  attr_accessible :course_id, :description, :sequence, :title
+  attr_accessible :course_id, :description, :sequence, :title, :material_ids
 
   before_create :set_sequence
 

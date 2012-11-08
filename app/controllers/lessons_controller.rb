@@ -1,8 +1,23 @@
 class LessonsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index]
+
   def index
     @course_id   = params[:course_id]
     @course_title = params[:course_title]
     @lessons = Lesson.lessons_by_courses(params[:course_id])
+  end
+
+  def associate_material
+    @lesson = Lesson.find(params[:lesson_id])
+    materials = Array.new(1)
+    materials[0] = params[:material_id]
+    @lesson.material_ids = materials
+
+    if @lesson.save
+      redirect_to(edit_lesson_path(@lesson), :notice => 'Material successfully associated.')
+    else
+      redirect_to(edit_lesson_path(@lesson))
+    end
   end
 
   def show

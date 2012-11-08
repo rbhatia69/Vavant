@@ -1,10 +1,6 @@
 <div class="page-header">
 <h1 class="page-title">Lessons - <span class="post-title"><%= link_to @course_title, edit_course_path(@course_id) %></span></h1>
 </div>
-
-
-
-<br>
 <div class="blog-post">
      <div class="span12">
        <% count = 1 %>
@@ -23,7 +19,7 @@
                   <div class="span10">
                     <%= link_to 'Edit', edit_lesson_path(lesson), :class => 'btn' %>
                     <%= link_to 'Show', lesson, :class => 'btn btn-success' %>
-                    <%= link_to 'Materials (0)', lesson, :class => 'btn btn-primary' %>
+                    <%= link_to 'Materials (' + lesson.material_ids.count.to_s() + ')', lesson, :class => 'btn btn-primary' %>
                     <%= link_to 'Destroy', lesson, confirm: 'Are you sure?', method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
                   </div>
              </div>
