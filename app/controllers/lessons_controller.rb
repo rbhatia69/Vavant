@@ -21,7 +21,17 @@ class LessonsController < ApplicationController
   end
 
   def show
-    @lesson = Lesson.find(params[:id])
+      @lesson = Lesson.find(params[:id])
+  end
+
+  def display_lesson
+    @lesson = Lesson.find(params[:lesson_id])
+    @lessons = nil
+
+    if (params.has_key?(:course_id))
+      course = Course.find(params[:course_id])
+      @lessons = course.lessons
+    end
   end
 
   def new

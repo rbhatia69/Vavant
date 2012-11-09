@@ -105,7 +105,7 @@
                  <% else %>
                      | <i class="icon-folder-open"></i> <%= link_to course.collection_name, root_path(:collection_id =>  course.collection_id, :collection_name => course.collection_name) %>
                  <% end %>
-                 | <i class="icon-volume-up"></i><li><%= link_to course.language.name, root_path(:language_name => course.language.name) %></li>
+                 | <i class="icon-volume-up"></i><%= link_to course.language.name, root_path(:language_name => course.language.name) %>
                </p>
              </div>
            <div class="row">

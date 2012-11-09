@@ -12,6 +12,7 @@ Vavant::Application.routes.draw do
   get "tags/:tag" => 'home#index', :as => 'tag'
 
   get "lessons/associate_material" => 'lessons#associate_material', :as => 'lessons_associate_material'
+  get "lessons/display_lesson" => 'lessons#display_lesson', :as => 'lessons_display_lesson'
 
   resources :courses
 

@@ -24,7 +24,7 @@
                    <% @course.lessons.each do |lesson| %>
                        <tr>
                          <td><%= count %>.</td>
-                         <td><%= link_to lesson.title, lesson %></td>
+                         <td><%= link_to lesson.title, lessons_display_lesson_path(:course_id => lesson.course_id, :lesson_id => lesson.id ) %></td>
                          <td>
                            <%  lesson.materials.each do |material| %>
                                <% if material.content_type == 1 %>
@@ -101,7 +101,7 @@
 
   <div class="span3">
       <% if @is_user_registered %>
-        <p><%= link_to 'Launch Lessons', courses_register_path(@course), :class => 'btn btn-large btn-info' %></p>
+        <p><%= link_to 'Launch Lessons', lessons_display_lesson_path(:course_id => @course.id, :lesson_id => @course.lessons[0].id), :class => 'btn btn-large btn-info' %></p>
         <%= link_to 'Post a comment', {:anchor => 'post_comment'}, :class => 'btn btn-large btn-warning' %>
       <% else %>
         <% if @course.price > 0 %>

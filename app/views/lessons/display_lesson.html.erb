@@ -3,29 +3,31 @@
 </h1>
 </div>
 
-<div class="span3">
-  <div class="widget">
-      <div class="accordion" id="accordion2">
-          <div class="accordion-group">
-            <div class="accordion-heading">
-              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                Lessons
-              </a>
-            </div>
-            <div id="collapseOne" class="accordion-body collapse in">
-              <div class="accordion-inner">
-                <div id="lessons">
-                  <% @course.lessons.each do |l| %>
-                     <li><%= link_to l.title, lesson_path(:course_id => @course.id) %>
-                  <% end %>
+<% if !@lessons.nil? %>
+    <div class="span3">
+      <div class="widget">
+          <div class="accordion" id="accordion2">
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                    Lessons
+                  </a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                  <div class="accordion-inner">
+                    <div id="lessons">
+                      <% @lessons.each do |l| %>
+                         <%= link_to l.title, lessons_display_lesson_path(:course_id => l.course_id, :lesson_id => l.id ) %><br>
+                      <% end %>
 
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
       </div>
-  </div>
-</div>
+    </div>
+<% end %>
 
 <div class="span9">
 <div class="row">
