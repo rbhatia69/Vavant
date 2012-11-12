@@ -16,7 +16,7 @@
               <div class="accordion-inner">
                 <div id="lessons">
                   <% @course.lessons.each do |l| %>
-                     <li><%= link_to l.title, lesson_path(:course_id => @course.id) %>
+                     <li><%= link_to l.title, lesson_path(:course_id => @course.id) %></li>
                   <% end %>
 
                 </div>
