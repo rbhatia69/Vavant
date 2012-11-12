@@ -1,5 +1,5 @@
 <div class="page-header">
-<h1 class="page-title"><%= @course.title %> -
+<h1 class="page-title"><%= @course.title %>
   <% if @course.price == 0.0 %>
        <span class="price-color">- FREE</span>
   <% else %>
@@ -115,7 +115,7 @@
            <ul class="unstyled">
             <li>
             </li>
-            <li><i class="icon-user"></i> by <%= link_to @course.user.username, @course %></li>
+            <li><i class="icon-user"></i> by <%= link_to @course.user.username, home_userinfo_path(:username => @course.user.username) %></li>
             <li><i class="icon-calendar"></i> <%= @course.updated_at.to_date.to_s(:long) %> </li>
             <li><i class="icon-volume-up"></i><%= link_to  @course.language.name, root_path(:language_name =>  @course.language.name) %></li>
             <li><i class="icon-comment"></i><%= @course.no_of_reviews %> comments</li>

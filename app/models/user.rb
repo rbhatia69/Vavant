@@ -13,4 +13,9 @@ class User < ActiveRecord::Base
 
   validates_uniqueness_of :email
   validates_uniqueness_of :username
+
+  def self.find_by_username(username)
+    return User.where("username = ?", username)
+  end
+
 end

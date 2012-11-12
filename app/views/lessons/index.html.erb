@@ -19,7 +19,7 @@
                   <div class="span10">
                     <%= link_to 'Edit', edit_lesson_path(lesson), :class => 'btn' %>
                     <%= link_to 'Show', lessons_display_lesson_path(:lesson_id => lesson.id ), :class => 'btn btn-success' %>
-                    <%= link_to 'Materials (' + lesson.material_ids.count.to_s() + ')', lesson, :class => 'btn btn-primary' %>
+                    <%= link_to 'Materials (' + lesson.material_ids.count.to_s() + ')', edit_lesson_path(lesson), :class => 'btn btn-primary' %>
                     <%= link_to 'Destroy', lesson, confirm: 'Are you sure?', method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
                   </div>
              </div>

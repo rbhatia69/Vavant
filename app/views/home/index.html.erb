@@ -97,7 +97,7 @@
            </div>
            <div class="row">
                <p>
-                 <i class="icon-user"></i> by <%= link_to course.user.username, course %>
+                 <i class="icon-user"></i> by <%= link_to course.user.username, home_userinfo_path(:username => course.user.username) %>
                  | <i class="icon-calendar"></i> <%= course.updated_at.to_date.to_s(:long) %>
                  | <%= course.rating %> stars of 5.0 (<%= course.no_of_reviews %> comments)
                  | <i class="icon-share"></i><%= course.no_of_registrations %> registered

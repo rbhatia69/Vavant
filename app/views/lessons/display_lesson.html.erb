@@ -16,10 +16,11 @@
                 <div id="collapseOne" class="accordion-body collapse in">
                   <div class="accordion-inner">
                     <div id="lessons">
+                      <% count = 1 %>
                       <% @lessons.each do |l| %>
-                         <%= link_to l.title, lessons_display_lesson_path(:course_id => l.course_id, :lesson_id => l.id ) %><br>
+                         <%= link_to count.to_s() + '. ' + l.title, lessons_display_lesson_path(:course_id => l.course_id, :lesson_id => l.id ) %><br>
+                         <% count = count + 1 %>
                       <% end %>
-
                     </div>
                   </div>
                 </div>
@@ -45,9 +46,11 @@
                        <% if material.content_type == 1 %>
                           <%= raw material.detail_content %>
                        <% elsif material.content_type == 2 %>
-                          <%= material..embedded_content %>
+                          <%= raw material.embedded_content %>
                        <% else %>
-                           <i class="icon-file"></i>
+                           <video class="sublime" width="640" height="360" poster="video-poster.jpg" preload="none">
+                             <source src="<%= material.stored.url() %>" />
+                           </video>
                        <% end %>
                      </div>
                    <% end %>

@@ -28,7 +28,8 @@ class HomeController < ApplicationController
     end
   end
 
-  def whatisthis
-
+  def userinfo
+    @user = User.find_by_username(params[:username])[0]
+    @courses = Course.courses_by_user(@user.id).page(params[:page])
   end
 end

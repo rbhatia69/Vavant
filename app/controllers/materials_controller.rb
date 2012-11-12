@@ -31,7 +31,7 @@ class MaterialsController < ApplicationController
   def create
     @material = Material.new(params[:material])
     if @material.save
-        if (@material.lesson_ids.nil?)
+        if (@material.lesson_ids.nil? || @material.lesson_ids.count == 0)
           redirect_to(materials_path, :notice => 'Material was successfully created and can be associated with a lesson.')
         else
           redirect_to(lessons_path(:lesson_id => @material.lesson_ids[0]), :notice => 'Material was successfully created.')

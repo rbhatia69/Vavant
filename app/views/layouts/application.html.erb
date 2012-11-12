@@ -4,6 +4,7 @@
   <title>Vavant</title>
   <%= stylesheet_link_tag    "font-awesome", "style", "colorbox", "application", :media => "all" %>
   <%= javascript_include_tag "application", "/assets/ckeditor/" %>
+  <script type="text/javascript" src="//cdn.sublimevideo.net/js/a7k3cxev.js"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -55,11 +56,13 @@
         <%= yield %>
     </div>
 
-     <footer>
+     <footer class="footer">
        <div class="container">
-          <br>
-          &copy; Company 2012 | <%= link_to 'what is vavant', home_whatis_path %> | <a href="#">About Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | <a href="#">Contact Us</a>
-          <br>
+          <div class="row">
+            <div class="span12" align="center">
+          &copy; Company 2012 | <%= link_to 'what is vavant', root_path %> | <a href="#">About Us</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | <a href="#">Contact Us</a>
+            </div>
+          </div>
        </div>
      </footer>
   </div>
