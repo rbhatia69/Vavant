@@ -24,7 +24,11 @@
                    <% @course.lessons.each do |lesson| %>
                        <tr>
                          <td><%= count %>.</td>
-                         <td><%= link_to lesson.title, lessons_display_lesson_path(:course_id => lesson.course_id, :lesson_id => lesson.id ) %></td>
+                         <% if @is_user_registered %>
+                            <td><%= link_to lesson.title, lessons_display_lesson_path(:course_id => lesson.course_id, :lesson_id => lesson.id ) %></td>
+                         <% else %>
+                            <td><%= lesson.title %></td>
+                         <% end %>
                          <td>
                            <%  lesson.materials.each do |material| %>
                                <% if material.content_type == 1 %>

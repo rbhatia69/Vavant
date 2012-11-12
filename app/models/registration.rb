@@ -51,4 +51,9 @@ class Registration < ActiveRecord::Base
   def self.user_registrations (user_id)
     return Registration.where("user_id = ?", user_id).order("updated_at DESC")
   end
+
+  def self.course_registrations (course_id)
+    return Registration.where("course_id = ?", course_id).order("updated_at DESC")
+  end
+
 end
