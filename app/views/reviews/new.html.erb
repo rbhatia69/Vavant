@@ -1,5 +1,8 @@
-<h1>New review</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', reviews_path %>
+<%= semantic_form_for @review, :html => { :multipart => true } do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :rating, :as => :select, :collection => [["1 star", 1], ["2 stars", 2], ["3 stars", 3], ["4 stars", 4], ["5 stars", 5]]%>
+    <%= f.input :comment %>
+    <%= f.input :course_id, :as => :hidden  %>
+    <%= f.input :user_id, :as => :hidden %>
+  <% end %>
+<% end %>

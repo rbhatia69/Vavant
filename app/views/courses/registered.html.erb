@@ -50,8 +50,8 @@
          <div class="row">
            <div class="span2"><p></p></div>
            <div class="span10">
-             <%= link_to 'Lessons', edit_course_path(registration.course), :class => 'btn btn-large btn-info' %>
-             <%= link_to 'Post a comment', edit_course_path(registration.course), :class => 'btn btn-large btn-warning' %>
+             <%= link_to 'Launch Lessons', lessons_display_lesson_path(:course_id => registration.course.id, :lesson_id => registration.course.lessons[0].id), :class => 'btn btn-large btn-info' %>
+             <%= link_to 'Post a comment', registration.course(:anchor => 'post_comment'), :class => 'btn btn-large btn-warning' %>
            </div>
          </div>
         <hr>

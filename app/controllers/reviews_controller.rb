@@ -3,17 +3,14 @@ class ReviewsController < ApplicationController
     @reviews = Review.all
   end
 
-  # GET /reviews/1
-  # GET /reviews/1.json
   def show
     @review = Review.find(params[:id])
   end
 
-  # GET /reviews/new
-  # GET /reviews/new.json
   def new
     @review = Review.new
-
+    @review.course_id = params[:course_id]
+    @review.user_id = current_user.id
   end
 
   # GET /reviews/1/edit
