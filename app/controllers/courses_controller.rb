@@ -40,10 +40,31 @@ class CoursesController < ApplicationController
     @recommended_courses = @course.recommended_courses()
   end
 
+  def showdetail
+    @course = Course.find(params[:course_id])
+    @course.reviews = Review.reviews_by_courses(@course.id)
+  end
+
   def new
     @course = Course.new
 
     @collections_list = Collection.find_collection_name_by_user(current_user.id)
+  end
+
+  def changestatus
+    @course = Course.find(params[:id])
+    if (params[:status] == 'U')
+      @course.enabled = false
+    else
+      @course.enabled = true
+    end
+
+    if @course.save
+        redirect_to(courses_showdetail_path(@course), :notice => 'Course was successfully updated.')
+    else
+        render :action => "showdetail"
+    end
+
   end
 
   def edit

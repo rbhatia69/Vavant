@@ -1,12 +1,12 @@
 
 <%= semantic_form_for @course, :html => { :multipart => true } do |f| %>
   <%= f.inputs do %>
-    <%= f.input :title, :input_html => { :size => 50 } %>
+    <%= f.input :title, :input_html => { :class => "span12"} %>
     <%= f.input :description, :as => :ckeditor, :input_html => { :toolbar => 'Easy'} %>
-    <%= f.input :price, :as => :number, :input_html => { :size => 5 }, :prepend => '$' %>
-    <%= f.input :language, :include_blank => false %>
-    <%= f.input :tag_list, :label => 'Tags (comma separated)' %>
-    <%= f.input :collection_name, :label => 'Collection' %>
+    <%= f.input :price, :as => :number, :input_html => { :class => "span1" }, :prepend => '$' %>
+    <%= f.input :language, :include_blank => false, :input_html => { :class => "span2"}  %>
+    <%= f.input :tag_list, :label => 'Tags (comma separated)', :input_html => { :class => "span6"} %>
+    <%= f.input :collection_name, :label => 'Collection', :input_html => { :class => "span3"} %>
     <% if !@course.id.nil? %>
         <%= image_tag @course.photo.url(), :size => "200x200" %><p><br></p>
     <% end %>

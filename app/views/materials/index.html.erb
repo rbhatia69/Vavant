@@ -29,6 +29,7 @@
                 <% elsif material.content_type == 2 %>
                     <%= raw material.embedded_content %>
                 <% else %>
+                    <%= image_tag(Ckeditor::Utils.filethumb(material.stored_file_name)) %>
                     <%= material.stored_file_name %> -
                     <%= material.stored_content_type %>
                 <% end %>

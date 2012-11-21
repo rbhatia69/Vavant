@@ -29,11 +29,29 @@ class MaterialsController < ApplicationController
   end
 
   def create
-    @material = Material.new(params[:material])
+    ##amaterial = Material.new()
+
+    ##l = params[:material][:lesson_ids]
+    ##params[:material].delete[:lesson_ids]
+
+    ##@material = Material.new(params[:material])
+    ##@material.lesson_ids = 1
+
+    @material = Material.new(:content_type => params[:material][:content_type], :detail_content => params[:material][:detail_content], :user_id => params[:material][:user_id])
+
+
     if @material.save
-        if (@material.lesson_ids.nil? || @material.lesson_ids.count == 0)
+##        if (params[:material][:lesson_ids].nil? || params[:material][:lesson_ids].count == 0)
+        if (params[:material][:lesson_ids].nil?)
+
           redirect_to(materials_path, :notice => 'Material was successfully created and can be associated with a lesson.')
         else
+          lessons = Array.new(1)
+          lessons[0] = params[:material][:lesson_ids][0]
+          @material.lesson_ids = lessons
+
+          ##amaterial.lesson_ids = params[:material][:lesson_ids]
+          @material.save
           redirect_to(lessons_path(:lesson_id => @material.lesson_ids[0]), :notice => 'Material was successfully created.')
         end
     else

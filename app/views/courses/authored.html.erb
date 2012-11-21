@@ -7,7 +7,7 @@
      <div class="span12">
      <% @courses.each do |course| %>
        <div class="row">
-              <h3 class="post-title"><%= link_to course.title, course %>
+              <h3 class="post-title"><%= link_to course.title, courses_showdetail_path(course) %>
                 <% if course.price == 0.0 %>
                      <span class="price-color">- FREE</span>
                 <% else %>
@@ -18,9 +18,9 @@
        <div class="row">
               <p>
                 <% if course.enabled %>
-                    <span class="label label-success">Enabled</span>
+                    <span class="label label-success">Published</span>
                 <% else %>
-                    <span class="label label-warning">Not Enabled</span>
+                    <span class="label label-warning">Not Published</span>
                 <% end %>
                 | <i class="icon-calendar"></i> <%= course.updated_at.to_date.to_s(:long) %>
                 | <i class="icon-comment"></i><%= course.no_of_reviews %> comments</li>
@@ -60,7 +60,7 @@
                 <%= link_to 'Copy', edit_course_path(course), :class => 'btn btn-success' %>
                 <%= link_to 'Lessons (' + course.lessons.count.to_s + ')', lessons_path(:course_id => course, :course_title => course.title), :class => 'btn btn-primary' %>
                 <%= link_to 'Registrations (' + course.registrations.count.to_s + ')', registrations_path(:course_id => course), :class => 'btn btn-primary' %>
-                <%= link_to 'Destroy', course, confirm: 'Are you sure?', method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+                <%= link_to 'Destroy', course, method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
               </div>
         </div>
        <hr>

@@ -9,6 +9,9 @@ Vavant::Application.routes.draw do
   get "courses/registered" => 'courses#registered', :as => 'courses_registered'
 
   get "courses/register/:course_id" => 'courses#register', :as => 'courses_register'
+  get "courses/showdetail/:course_id" => 'courses#showdetail', :as => 'courses_showdetail'
+  get "courses/changestatus" => 'courses#changestatus', :as => 'courses_changestatus'
+
   get "tags/:tag" => 'home#index', :as => 'tag'
 
   get "lessons/associate_material" => 'lessons#associate_material', :as => 'lessons_associate_material'

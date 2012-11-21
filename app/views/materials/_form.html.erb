@@ -1,11 +1,45 @@
+<%= javascript_tag do %>
+  function showFields1()
+    {
+        alert("hello");
+    }
+  function showFields(sel) {
+      var value = sel.options[sel.selectedIndex].value;
+      if (value == 1) {
+            $("#embedded").hide();
+            $("#file_field").hide();
+            $("#detail_content").show();
+      }
+      else
+        if (value == 2) {
+            $("#embedded").show();
+            $("#file_field").hide();
+            $("#detail_content").hide();
+        }
+        else {
+            $("#embedded").hide();
+            $("#file_field").show();
+            $("#detail_content").hide();
+        }
+        end
+      end
+  }
+<% end %>
+
 <%= semantic_form_for @material do |f| %>
   <%= f.inputs do %>
-    <%= f.input :content_type, :as => :select, :collection => [["Stored - Rich Text", 1], ["Linked from sites", 2], ["Stored - File", 3]], :include_blank => false  %>
-    <%= f.input :detail_content, :as => :ckeditor, :input_html => { :toolbar => 'Full'} %>
-    <%= f.input :embedded_content %>
-    <%= f.file_field :stored %>
+    <%= f.input :content_type, :as => :select, :input_html => { :onchange => "showFields(this)" }, :collection => [["Stored - Rich Text", 1], ["Linked from sites", 2], ["Stored - File", 3]], :include_blank => false  %>
+    <div id="detail_content" style="display:none">
+        <%= f.input :detail_content, :as => :ckeditor, :input_html => { :toolbar => 'Full'} %>
+    </div>
+    <div id="embedded" style="display:none">
+         <%= f.input :embedded_content %>
+    </div>
+    <div id="file_field" style="display:none">
+        <%= f.file_field :stored %>
+    </div>
     <%= f.input :user_id, :as => :hidden  %>
-    <% if !@material.lesson_ids.nil? && @material.lesson_ids.count > 0%>
+    <% if !@material.lesson_ids.nil? && @material.lesson_ids.count > 0 %>
         <%= f.input :lesson_ids, :as => :hidden %>
     <% end %>
   <% end %>
@@ -14,3 +48,5 @@
     <%= f.action :submit, :as => :input %>
   <% end %>
 <% end %>
+
+<script>showFields(document.getElementById("material_content_type"));</script>
