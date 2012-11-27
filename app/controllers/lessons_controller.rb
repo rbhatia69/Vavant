@@ -37,17 +37,20 @@ class LessonsController < ApplicationController
   def new
     @lesson = Lesson.new
     @lesson.course_id = params[:course_id]
+    @course = Course.find(params[:course_id])
   end
 
   def edit
     @lesson = Lesson.find(params[:id])
+    @course = Course.find(@lesson.course_id)
   end
 
   def create
     @lesson = Lesson.new(params[:lesson])
 
     if @lesson.save
-      redirect_to(lessons_path(:course_id => @lesson.course_id, :course_title => @lesson.course.title), :notice => 'Lesson was successfully created.')
+      @course = Course.find(@lesson.course_id)
+      redirect_to(courses_showdetail_path(@course), :notice => 'Lesson was successfully created.')
     else
       render :action => "new"
     end
@@ -56,8 +59,9 @@ class LessonsController < ApplicationController
   def update
     @lesson = Lesson.find(params[:id])
 
-    if @lesson.save
-      redirect_to(lessons_path(:course_id => @lesson.course_id, :course_title => @lesson.course.title), :notice => 'Lesson was successfully updated.')
+    if @lesson.update_attributes(params[:lesson])
+      @course = Course.find(@lesson.course_id)
+      redirect_to(courses_showdetail_path(@course), :notice => 'Lesson was successfully updated.')
     else
       render :action => "edit"
     end
@@ -66,8 +70,9 @@ class LessonsController < ApplicationController
 
   def destroy
     @lesson = Lesson.find(params[:id])
+    @course = Course.find(@lesson.course_id)
     @lesson.destroy
-    redirect_to(lessons_path(:course_id => @lesson.course_id, :course_title => @lesson.course.title), :notice => 'Lesson was deleted.')
+    redirect_to(courses_showdetail_path(@course), :notice => 'Lesson was deleted.')
 
   end
 end

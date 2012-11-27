@@ -57,13 +57,14 @@
    </div>
    <div class="span3">
         <p><%= link_to 'Send Message', root_path, :class => 'btn btn-large btn-success' %></p>
+        <p></p>
         <div class="widget">
              <h5 class="sidebar-title">Details </h5>
              <ul class="unstyled">
-              <li>Total Sales: $19.99</li>
-              <li># of registered: 19</li>
-              <li># of comments: 21</li>
-              <li>Avg 2.6 stars of 5.0</li>
+              <li>Total Sales: $<%= @user.total_sales %></li>
+              <li># of registered: <%= @user.total_registered %></li>
+              <li># of comments: <%= @user.total_comments %></li>
+              <li>Avg <%= number_with_precision @user.avg_rating, :precision => 2 %> stars of 5.0</li>
              </ul>
         </div>
    </div>

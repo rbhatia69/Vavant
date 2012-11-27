@@ -20,7 +20,7 @@
                 <% if course.enabled %>
                     <span class="label label-success">Published</span>
                 <% else %>
-                    <span class="label label-warning">Not Published</span>
+                    <span class="label label-warning">Draft</span>
                 <% end %>
                 | <i class="icon-calendar"></i> <%= course.updated_at.to_date.to_s(:long) %>
                 | <i class="icon-comment"></i><%= course.no_of_reviews %> comments</li>

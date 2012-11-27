@@ -54,11 +54,8 @@ class Course < ActiveRecord::Base
 
   ## can't if there are reviews or registrations
   def check_destroy_allowed
-    if self.no_of_reviews > 0
-      return false
-    end
     if self.no_of_registrations > 0
-      return false
+      raise "Course has registrations and can not be deleted"
     end
 
   end

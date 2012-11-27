@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106030945) do
+ActiveRecord::Schema.define(:version => 20121127160607) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -69,8 +69,12 @@ ActiveRecord::Schema.define(:version => 20121106030945) do
     t.string   "description"
     t.integer  "course_id"
     t.integer  "sequence"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "material_file_name"
+    t.string   "material_content_type"
+    t.integer  "material_file_size"
+    t.datetime "material_updated_at"
   end
 
   add_index "lessons", ["course_id"], :name => "index_lessons_on_course_id"

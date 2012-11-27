@@ -1,5 +1,5 @@
 <div class="page-header">
-<h1 class="page-title">New Lesson</h1>
+<h1 class="page-title"><%=  link_to(@course.title, courses_showdetail_path(@course)) %> - New Lesson</h1>
 </div>
 
 <%= render 'form' %>

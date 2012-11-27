@@ -28,7 +28,7 @@
 
 <%= semantic_form_for @material do |f| %>
   <%= f.inputs do %>
-    <%= f.input :content_type, :as => :select, :input_html => { :onchange => "showFields(this)" }, :collection => [["Stored - Rich Text", 1], ["Linked from sites", 2], ["Stored - File", 3]], :include_blank => false  %>
+    <%= f.input :content_type,  :input_html => { :class => "span1"}, :as => :select, :input_html => { :onchange => "showFields(this)" }, :collection => [["Text", 1], ["Link", 2], ["File", 3]], :include_blank => false  %>
     <div id="detail_content" style="display:none">
         <%= f.input :detail_content, :as => :ckeditor, :input_html => { :toolbar => 'Full'} %>
     </div>
@@ -39,9 +39,6 @@
         <%= f.file_field :stored %>
     </div>
     <%= f.input :user_id, :as => :hidden  %>
-    <% if !@material.lesson_ids.nil? && @material.lesson_ids.count > 0 %>
-        <%= f.input :lesson_ids, :as => :hidden %>
-    <% end %>
   <% end %>
 
   <%= f.actions do %>

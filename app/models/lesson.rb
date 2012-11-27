@@ -1,12 +1,12 @@
 class Lesson < ActiveRecord::Base
   belongs_to :course
-  has_and_belongs_to_many :materials
+  has_attached_file :material
 
   validates :description, :presence => true
   validates :title, :presence => true, :length => {:in => 1..80}
   validates :course_id, :presence => true
 
-  attr_accessible :course_id, :description, :sequence, :title, :material_ids
+  attr_accessible :course_id, :description, :sequence, :title, :material
 
   before_create :set_sequence
 

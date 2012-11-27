@@ -3,10 +3,10 @@ class MaterialsController < ApplicationController
 
   def index
     @materials = Material.material_by_user(current_user.id)
-    if (params.has_key?(:lesson_id))
-      @lesson = Lesson.find(params[:lesson_id])
+    if (params.has_key?(:course_id))
+      @course = Course.find(params[:course_id])
     else
-      @lesson = nil
+      @course = nil
     end
   end
 
@@ -29,31 +29,10 @@ class MaterialsController < ApplicationController
   end
 
   def create
-    ##amaterial = Material.new()
-
-    ##l = params[:material][:lesson_ids]
-    ##params[:material].delete[:lesson_ids]
-
-    ##@material = Material.new(params[:material])
-    ##@material.lesson_ids = 1
-
-    @material = Material.new(:content_type => params[:material][:content_type], :detail_content => params[:material][:detail_content], :user_id => params[:material][:user_id])
-
+    @material = Material.new(params[:material])
 
     if @material.save
-##        if (params[:material][:lesson_ids].nil? || params[:material][:lesson_ids].count == 0)
-        if (params[:material][:lesson_ids].nil?)
-
-          redirect_to(materials_path, :notice => 'Material was successfully created and can be associated with a lesson.')
-        else
-          lessons = Array.new(1)
-          lessons[0] = params[:material][:lesson_ids][0]
-          @material.lesson_ids = lessons
-
-          ##amaterial.lesson_ids = params[:material][:lesson_ids]
-          @material.save
-          redirect_to(lessons_path(:lesson_id => @material.lesson_ids[0]), :notice => 'Material was successfully created.')
-        end
+        redirect_to(materials_path, :notice => 'Material was successfully created and can be associated with lessons.')
     else
         render :action => "new"
     end

@@ -1,3 +1,5 @@
+include AutoHtml
+
 class Material < ActiveRecord::Base
   has_and_belongs_to_many :lessons
 
@@ -32,4 +34,7 @@ class Material < ActiveRecord::Base
     return Material.where("user_id = ?", user_id).order("updated_at DESC")
   end
 
+  def html_version
+    return auto_html(self.detail_content){ youtube(:width => 200, :height => 150);simple_format; link(:target => 'blank');  }
+  end
 end

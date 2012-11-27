@@ -7,16 +7,17 @@
  <% @registered_courses.each do |registration| %>
         <div class="row">
            <h3 class="post-title"><%= link_to registration.course.title, registration.course %>
-             <% if registration.course.price == 0.0 %>
-                  <span class="price-color">- FREE</span>
+             <% if registration.price == 0.0 %>
+                  <span class="price-color">- FREE </span>
              <% else %>
-                  <span class="price-color">- $ <%= registration.course.price %></span>
+                  <span class="price-color">- $ <%= registration.price %> </span>
              <% end %>
+             <small>(registered on: <%= registration.created_at.to_date.to_s(:long) %>)</small>
            </h3>
         </div>
         <div class="row">
            <p>
-             <i class="icon-user"></i> by <%= link_to registration.course.user.username, home_userinfo_path(:username => registration.user.username) %>
+             <i class="icon-user"></i> by <%= link_to registration.course.user.username, home_userinfo_path(:username => registration.course.user.username) %>
              | <i class="icon-calendar"></i> <%= registration.course.updated_at.to_date.to_s(:long) %>
              | <i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>(<%= registration.course.no_of_reviews %> comments)
              | <i class="icon-share"></i><%= registration.course.no_of_registrations %> registered
