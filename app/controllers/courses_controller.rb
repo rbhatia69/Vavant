@@ -98,7 +98,10 @@ class CoursesController < ApplicationController
   def destroy
     @course = Course.find(params[:id])
     @course.destroy
-
-    redirect_to(courses_authored_path, :notice => 'Course was successfully deleted.')
+    if (@course.errors.nil?)
+      redirect_to(courses_authored_path, :notice => 'Course was successfully deleted.')
+    else
+      redirect_to(courses_authored_path, :alert => @course.errors[:base][0])
+    end
   end
 end

@@ -53,16 +53,6 @@
               </p>
             </div>
        </div>
-       <div class="row">
-              <div class="span2"><p></p></div>
-              <div class="span10">
-                <%= link_to 'Edit', edit_course_path(course), :class => 'btn' %>
-                <%= link_to 'Copy', edit_course_path(course), :class => 'btn btn-success' %>
-                <%= link_to 'Lessons (' + course.lessons.count.to_s + ')', lessons_path(:course_id => course, :course_title => course.title), :class => 'btn btn-primary' %>
-                <%= link_to 'Registrations (' + course.registrations.count.to_s + ')', registrations_path(:course_id => course), :class => 'btn btn-primary' %>
-                <%= link_to 'Destroy', course, method: :delete, :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
-              </div>
-        </div>
        <hr>
     <% end %>
     <div class="row">

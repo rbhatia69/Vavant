@@ -33,29 +33,21 @@
 <div class="span9">
 <div class="row">
   <div class="span9">
-    <div class="row">
       <div class="well">
-        <p class="lead"><%= raw @lesson.description %></p>
+        <%= raw @lesson.description_html_version %>
       </div>
-    </div>
 
-    <% if @lesson.materials.count > 0 %>
-             <div class="span8">
-                   <% @lesson.materials.each do |material| %>
-                     <div class="row">
-                       <% if material.content_type == 1 %>
-                          <%= raw material.detail_content %>
-                       <% elsif material.content_type == 2 %>
-                          <%= raw material.embedded_content %>
-                       <% else %>
-                           <video class="sublime" width="640" height="360" poster="video-poster.jpg" preload="none">
-                             <source src="<%= material.stored.url() %>" />
-                           </video>
-                       <% end %>
-                     </div>
-                   <% end %>
-             </div>
+    <% if !@lesson.material_file_name.nil? %>
+        <div id='my-video'></div>
+        <script type='text/javascript'>
+            jwplayer('my-video').setup({
+                file: '<%= 'http://127.0.0.1:3000' + @lesson.material.url() %>',
+                width: '700',
+                height: '400'
+            });
+        </script>
     <% end %>
+
 
 
   </div>

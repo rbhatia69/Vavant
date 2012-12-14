@@ -20,6 +20,12 @@
                <div class="row">
                  <h3>Table of Contents</h3>
                <table class="table table-bordered table-hover">
+                   <tr>
+                       <th>No.</th>
+                       <th>Title</th>
+                       <th>Attached File</th>
+                   </tr>
+
                    <% count = 1 %>
                    <% @course.lessons.each do |lesson| %>
                        <tr>
@@ -30,14 +36,11 @@
                             <td><%= lesson.title %></td>
                          <% end %>
                          <td>
-                           <%  lesson.materials.each do |material| %>
-                               <% if material.content_type == 1 %>
-                                   <span class="label label-success">stored - rich text</span>
-                               <% elsif material.content_type == 2 %>
-                                   <span class="label label-success">linked from sites</span>
-                               <% else %>
-                                   <span class="label label-success">stored - file</span>
-                               <% end %>
+                           <% if lesson.material_file_name.nil? %>
+                                none
+                           <% else %>
+                               <%= image_tag(Ckeditor::Utils.filethumb(lesson.material_file_name), :size => "20x20") %>
+                               <%= lesson.material_file_name %>
                            <% end %>
                          </td>
                        </tr>
@@ -87,8 +90,8 @@
 
               <%= semantic_form_for @review, :html => { :multipart => true } do |f| %>
                 <%= f.inputs do %>
-                  <%= f.input :rating, :as => :select, :collection => [["1 star", 1], ["2 stars", 2], ["3 stars", 3], ["4 stars", 4], ["5 stars", 5]]%>
-                  <%= f.input :comment %>
+                  <%= f.input :rating, :as => :select, :collection => [["1 star", 1], ["2 stars", 2], ["3 stars", 3], ["4 stars", 4], ["5 stars", 5]], :input_html => { :class => "span2"}%>
+                  <%= f.input :comment, :input_html => { :class => "span8"} %>
                   <%= f.input :course_id, :as => :hidden  %>
                   <%= f.input :user_id, :as => :hidden %>
                 <% end %>

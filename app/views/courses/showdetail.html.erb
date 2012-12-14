@@ -31,14 +31,10 @@
                    <% @course.lessons.each do |lesson| %>
                        <tr>
                          <td><%= count %>.</td>
-                         <% if @is_user_registered %>
-                            <td><%= link_to lesson.title, lessons_display_lesson_path(:course_id => lesson.course_id, :lesson_id => lesson.id ) %></td>
-                         <% else %>
-                            <td><%= lesson.title %></td>
-                         <% end %>
+                         <td><%= lesson.title %></td>
                          <td>
                            <% if lesson.material_file_name.nil? %>
-                                no attached file
+                                none
                            <% else %>
                                <%= image_tag(Ckeditor::Utils.filethumb(lesson.material_file_name), :size => "20x20") %>
                                <%= lesson.material_file_name %>

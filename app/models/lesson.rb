@@ -1,3 +1,5 @@
+include AutoHtml
+
 class Lesson < ActiveRecord::Base
   belongs_to :course
   has_attached_file :material
@@ -10,7 +12,7 @@ class Lesson < ActiveRecord::Base
 
   before_create :set_sequence
 
-  before_destroy :check_destroy_allowed
+  ##before_destroy :check_destroy_allowed
 
   ## make sure upon sequence is setup correctly upon creation
   def set_sequence
@@ -29,4 +31,20 @@ class Lesson < ActiveRecord::Base
   def self.lessons_by_courses(course_id)
     return Lesson.where("course_id = ?", course_id)
   end
+
+  def description_html_version
+    return auto_html(self.description){
+                                      html_escape;
+                                      image;
+                                      dailymotion;
+                                      google_video;
+                                      metacafe;
+                                      soundcloud;
+                                      google_map;
+                                      vimeo;
+                                      youtube;
+                                      simple_format; link(:target => 'blank');
+                                      }
+  end
+
 end

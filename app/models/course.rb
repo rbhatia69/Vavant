@@ -6,8 +6,8 @@ class Course < ActiveRecord::Base
   belongs_to :collection
   belongs_to :language
   has_many :lessons, :dependent => :destroy
-  has_many :reviews
-  has_many :registrations
+  has_many :reviews, :dependent => :destroy
+  has_many :registrations, :dependent => :destroy
   has_attached_file :photo
   acts_as_taggable
 
@@ -55,9 +55,9 @@ class Course < ActiveRecord::Base
   ## can't if there are reviews or registrations
   def check_destroy_allowed
     if self.no_of_registrations > 0
-      raise "Course has registrations and can not be deleted"
+      self.errors.add(:base, "Course has registrations and can not be deleted")
+      return false
     end
-
   end
 
   def self.active_courses
