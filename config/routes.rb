@@ -11,10 +11,14 @@ Vavant::Application.routes.draw do
   get "courses/register/:course_id" => 'courses#register', :as => 'courses_register'
   get "courses/showdetail/:course_id" => 'courses#showdetail', :as => 'courses_showdetail'
   get "courses/changestatus" => 'courses#changestatus', :as => 'courses_changestatus'
+  get "courses/mark_complete/:course_id" => 'courses#mark_complete', :as => 'courses_mark_complete'
+  get "courses/mark_incomplete/:course_id" => 'courses#mark_incomplete', :as => 'courses_mark_incomplete'
 
   get "tags/:tag" => 'home#index', :as => 'tag'
 
   get "lessons/associate_material" => 'lessons#associate_material', :as => 'lessons_associate_material'
+  get "lessons/mark_complete/" => 'lessons#mark_complete', :as => 'lessons_mark_complete'
+  get "lessons/mark_incomplete/" => 'lessons#mark_incomplete', :as => 'lessons_mark_incomplete'
   get "lessons/display_lesson" => 'lessons#display_lesson', :as => 'lessons_display_lesson'
 
   resources :courses

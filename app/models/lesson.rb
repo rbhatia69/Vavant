@@ -2,6 +2,8 @@ include AutoHtml
 
 class Lesson < ActiveRecord::Base
   belongs_to :course
+  has_many :completions, :dependent => :destroy
+
   has_attached_file :material
 
   validates :description, :presence => true
@@ -34,7 +36,6 @@ class Lesson < ActiveRecord::Base
 
   def description_html_version
     return auto_html(self.description){
-                                      html_escape;
                                       image;
                                       dailymotion;
                                       google_video;

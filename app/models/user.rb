@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :courses
   has_many :reviews
   has_many :registrations
+  has_many :completions
+
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable

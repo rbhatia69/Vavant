@@ -24,6 +24,38 @@ class CoursesController < ApplicationController
     end
   end
 
+  def mark_complete
+    @completion = Completion.find(:all, :conditions => ["course_id = ? and user_id = ? and lesson_id is NULL", params[:course_id], current_user.id])
+    if (@completion.empty?)
+      @completion = Completion.new(:user_id => current_user.id, :course_id => params[:course_id], :status => 2)
+      if @completion.save
+          redirect_to(course_path(:id => params[:course_id]), :notice => 'Course has been mark completed')
+      end
+    else
+      @completion[0].status = 2
+      if @completion[0].save
+          redirect_to(course_path(:id => params[:course_id]), :notice => 'Course has been mark completed')
+      end
+    end
+  end
+
+  def mark_incomplete
+    @completion = Completion.find(:all, :conditions => ["course_id = ? and user_id = ? and lesson_id is NULL", params[:course_id], current_user.id])
+    if (@completion.empty?)
+      @completion = Completion.new(:user_id => current_user.id, :course_id => params[:course_id], :status => 1)
+      if @completion.save
+          redirect_to(course_path(:id => params[:course_id]), :notice => 'Course has been marked in progress')
+      end
+    else
+      @completion[0].status = 1
+      if @completion[0].save
+          redirect_to(course_path(:id => params[:course_id]), :notice => 'Course has been marked in progress')
+      end
+
+    end
+
+  end
+
   def show
     @course = Course.find(params[:id])
     @course.reviews = Review.reviews_by_courses(@course.id)
@@ -35,6 +67,8 @@ class CoursesController < ApplicationController
       @review = Review.new()
       @review.course_id = @course.id
       @review.user_id = current_user.id
+
+      @all_completion = Completion.completions_by_course_and_user(@course.id, current_user.id)
     end
 
     @recommended_courses = @course.recommended_courses()

@@ -8,6 +8,7 @@ class Course < ActiveRecord::Base
   has_many :lessons, :dependent => :destroy
   has_many :reviews, :dependent => :destroy
   has_many :registrations, :dependent => :destroy
+  has_many :completions, :dependent => :destroy
   has_attached_file :photo
   acts_as_taggable
 

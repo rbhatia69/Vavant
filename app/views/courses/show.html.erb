@@ -19,39 +19,58 @@
     <% if @course.lessons.count > 0 %>
                <div class="row">
                  <h3>Table of Contents</h3>
-               <table class="table table-bordered table-hover">
-                   <tr>
-                       <th>No.</th>
-                       <th>Title</th>
-                       <th>Attached File</th>
-                   </tr>
-
-                   <% count = 1 %>
-                   <% @course.lessons.each do |lesson| %>
+                   <table class="table table-bordered table-hover">
                        <tr>
-                         <td><%= count %>.</td>
-                         <% if @is_user_registered %>
-                            <td><%= link_to lesson.title, lessons_display_lesson_path(:course_id => lesson.course_id, :lesson_id => lesson.id ) %></td>
-                         <% else %>
-                            <td><%= lesson.title %></td>
-                         <% end %>
-                         <td>
-                           <% if lesson.material_file_name.nil? %>
-                                none
-                           <% else %>
-                               <%= image_tag(Ckeditor::Utils.filethumb(lesson.material_file_name), :size => "20x20") %>
-                               <%= lesson.material_file_name %>
+                           <th>No.</th>
+                           <th>Title</th>
+                           <th>Attached File</th>
+                           <% if @is_user_registered %>
+                             <th>Status</th>
                            <% end %>
-                         </td>
+
                        </tr>
-                       <% count = count + 1 %>
-                   <% end %>
-               </table>
+
+                       <% count = 1 %>
+                       <% @course.lessons.each do |lesson| %>
+                           <tr>
+                             <td><%= count %>.</td>
+                             <% if @is_user_registered %>
+                                <td><%= link_to lesson.title, lessons_display_lesson_path(:course_id => lesson.course_id, :lesson_id => lesson.id ) %></td>
+                             <% else %>
+                                <td><%= lesson.title %></td>
+                             <% end %>
+                             <td>
+                               <% if lesson.material_file_name.nil? %>
+                                    none
+                               <% else %>
+                                   <%= image_tag(Ckeditor::Utils.filethumb(lesson.material_file_name), :size => "20x20") %>
+                                   <%= lesson.material_file_name %>
+                               <% end %>
+                             </td>
+                             <% if @is_user_registered %>
+                                 <% lesson_completion = nil %>
+                                 <% if !@all_completion.empty? %>
+                                     <% lesson_completion = @all_completion.detect{|c| c.lesson_id == lesson.id} %>
+                                 <% end %>
+                                 <% if lesson_completion.nil?  %>
+                                     <td>-</td>
+                                 <% elsif lesson_completion.status == 1 %>
+                                     <td><i class="icon-arrow-right"></i> In Progress</td>
+                                 <% else %>
+                                     <td><i class="icon-ok"></i> Complete <small>(on <%= lesson_completion.updated_at.to_date.to_s(:long) %>)</small></td>
+                                 <% end %>
+
+                             <% end %>
+                           </tr>
+                           <% count = count + 1 %>
+                       <% end %>
+                   </table>
                </div>
     <% end %>
 
     <% if @course.reviews.count > 0 %>
-
+        <a id="comments"></a>
+        <br><br><br><br>
         <div class="row">
           <h3>Comments (<%= @course.reviews.count %>)</h3>
 
@@ -108,13 +127,13 @@
 
   <div class="span3">
       <% if @is_user_registered %>
-        <p><%= link_to 'Launch Lessons', lessons_display_lesson_path(:course_id => @course.id, :lesson_id => @course.lessons[0].id), :class => 'btn btn-large btn-info' %></p>
-        <%= link_to 'Post a comment', {:anchor => 'post_comment'}, :class => 'btn btn-large btn-warning' %>
+        <p><%= link_to 'Launch Lessons', lessons_display_lesson_path(:course_id => @course.id, :lesson_id => @course.lessons[0].id), :class => 'btn btn-info' %></p>
+        <p><%= link_to 'Post a comment', {:anchor => 'post_comment'}, :class => 'btn btn-warning' %></p>
       <% else %>
         <% if @course.price > 0 %>
-            <%= link_to '$ ' + @course.price.to_s + ' - Register', courses_register_path(@course), :class => 'btn btn-large btn-success' %>
+            <%= link_to '$ ' + @course.price.to_s + ' - Register', courses_register_path(@course), :class => 'btn btn-success' %>
         <% else %>
-            <%= link_to 'FREE - Register', courses_register_path(@course), :class => 'btn btn-large btn-success' %>
+            <%= link_to 'FREE - Register', courses_register_path(@course), :class => 'btn btn-success' %>
         <% end %>
       <% end %>
       <div class="widget">
@@ -125,13 +144,26 @@
             <li><i class="icon-user"></i> by <%= link_to @course.user.username, home_userinfo_path(:username => @course.user.username) %></li>
             <li><i class="icon-calendar"></i> <%= @course.updated_at.to_date.to_s(:long) %> </li>
             <li><i class="icon-volume-up"></i><%= link_to  @course.language.name, root_path(:language_name =>  @course.language.name) %></li>
-            <li><i class="icon-comment"></i><%= @course.no_of_reviews %> comments</li>
+            <li><i class="icon-comment"></i><%= link_to @course.no_of_reviews, {:anchor => 'comments'} %> comments </li>
             <li><%= @course.rating %> stars of 5.0</li>
             <li><i class="icon-share"></i><%= @course.no_of_registrations %> registered</li>
             <% if @course.collection_id.nil? %>
             <% else %>
                  <i class="icon-calendar"></i><%= link_to @course.collection_name, root_path(:collection_id =>  @course.collection_id, :collection_name => @course.collection_name) %>
             <% end %>
+            <% if @is_user_registered %>
+                 <% if !@all_completion.empty? %>
+                     <% course_completion = @all_completion.detect{|c| c.lesson_id.nil?} %>
+                 <% end %>
+                 <% if @all_completion.empty? || course_completion.status == 1  %>
+                     <i class="icon-arrow-right"></i>In Progress
+                     <li><small>(<%= link_to 'click', courses_mark_complete_path(:course_id => @course.id) %> to complete</small>)</li>
+                 <% else %>
+                     <li><i class="icon-ok"></i> on <%=  course_completion.updated_at.to_date.to_s(:long) %></li>
+                     <li><small>(<%= link_to 'click', courses_mark_incomplete_path(:course_id => @course.id) %> to mark in progress</small>)</li>
+                 <% end %>
+            <% end %>
+
            </ul>
       </div>
 

@@ -14,6 +14,7 @@ gem 'acts-as-taggable-on'
 gem 'will_paginate', '~> 3.0'
 
 gem "ckeditor", "3.7.3"
+#gem 'ckeditor_rails'
 
 gem "auto_html"
 

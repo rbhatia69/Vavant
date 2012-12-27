@@ -1,41 +1,14 @@
 <div class="page-header">
-<h1 class="page-title"><%= link_to @lesson.course.title, @lesson.course %> - <%= @lesson.title %>
+<h1 class="page-title">
+   <%= @lesson.title %>
 </h1>
 </div>
 
-<% if !@lessons.nil? %>
-    <div class="span3">
-      <div class="widget">
-          <div class="accordion" id="accordion2">
-              <div class="accordion-group">
-                <div class="accordion-heading">
-                  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                    Table of Contents
-                  </a>
-                </div>
-                <div id="collapseOne" class="accordion-body collapse in">
-                  <div class="accordion-inner">
-                    <div id="lessons">
-                      <% count = 1 %>
-                      <% @lessons.each do |l| %>
-                         <%= link_to count.to_s() + '. ' + l.title, lessons_display_lesson_path(:course_id => l.course_id, :lesson_id => l.id ) %><br>
-                         <% count = count + 1 %>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-      </div>
-    </div>
-<% end %>
-
 <div class="span9">
-<div class="row">
-  <div class="span9">
-      <div class="well">
-        <%= raw @lesson.description_html_version %>
-      </div>
+  <div class="row">
+    <div class="well">
+       <%= raw @lesson.description_html_version %>
+    </div>
 
     <% if !@lesson.material_file_name.nil? %>
         <div id='my-video'></div>
@@ -47,12 +20,37 @@
             });
         </script>
     <% end %>
-
-
-
   </div>
-
 </div>
 
+<% if !@lessons.nil? %>
+    <div class="span3">
+      <div class="widget">
+           <h5 class="sidebar-title">Details</h5>
+           <ul class="unstyled">
+               <li><i class="icon-book"></i><%= link_to @lesson.course.title, @lesson.course %></li>
+               <% if @lesson_completion.empty? || @lesson_completion[0].status == 1  %>
+                 <i class="icon-arrow-right"></i>In Progress
+                 <li><small>(<%= link_to 'click', lessons_mark_complete_path(:course_id => @lesson.course.id, :lesson_id => @lesson.id) %> to complete</small>)</li>
+               <% else %>
+                 <li><i class="icon-ok"></i> on <%=  @lesson_completion[0].updated_at.to_date.to_s(:long) %></li>
+                 <li><small>(<%= link_to 'click', lessons_mark_incomplete_path(:course_id => @lesson.course.id, :lesson_id => @lesson.id) %> to mark in progress</small>)</li>
+               <% end %>
+           </ul>
+      </div>
 
-</div>
+        <div class="widget">
+             <h5 class="sidebar-title">Table of Contents </h5>
+             <ul class="unstyled">
+              <li>
+              </li>
+               <% count = 1 %>
+               <% @lessons.each do |l| %>
+                  <li><%= link_to count.to_s() + '. ' + l.title, lessons_display_lesson_path(:course_id => l.course_id, :lesson_id => l.id ) %></li>
+                  <% count = count + 1 %>
+               <% end %>
+             </ul>
+        </div>
+    </div>
+<% end %>
+
